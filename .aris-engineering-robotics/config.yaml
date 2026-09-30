@@ -1,0 +1,50 @@
+# ARIS Engineering Robotics — integration configuration
+# Paths are relative to this repository root (../sibling convention).
+# Override with environment variables if repos are located elsewhere.
+#
+#   ARIS_REPO=/absolute/path/to/Auto-claude-code-research-in-sleep
+#   EPS_REPO=/absolute/path/to/engineering-paper-skills
+
+upstreams:
+  aris: ../Auto-claude-code-research-in-sleep
+  engineering_paper_skills: ../engineering-paper-skills
+
+# Default install target. Supported values: codex, claude
+install:
+  platform: codex
+  target: user          # user  → ~/.codex/skills/  |  project → .codex/skills/
+
+# Skill selection: which upstream ARIS skills to install alongside robotics skills.
+aris_skills_to_install:
+  - research-lit
+  - idea-discovery
+  - idea-discovery-robot
+  - novelty-check
+  - experiment-plan
+  - research-implement-feature
+  - run-experiment
+  - monitor-experiment
+  - training-check
+  - analyze-results
+  - ablation-planner
+  - experiment-audit
+  - result-to-claim
+  - paper-writing
+  - paper-claim-audit
+  - research-review
+  - rebuttal
+  - paper-compile
+  - research-pipeline
+  - dse-loop
+  - claims-drafting
+  - paper-write
+
+eps_skills_to_install:
+  - engineering-writing
+  - engineering-polishing
+  - engineering-paper-auditor
+  - engineering-figure-table
+  - engineering-response
+  - engineering-validation
+  - engineering-paper-router
+  - engineering-paper-coach

@@ -1,0 +1,34 @@
+experiment:
+  id: EXP001
+  name: mpc_tracking_test
+  domain: robotics
+  category: performance
+  priority: MUST_RUN
+  claims: [C001]
+
+platform:
+  type: simulation
+  middleware: ros2
+  simulator: gazebo
+  autopilot: px4
+
+system:
+  robot: {type: uav}
+  controller: {type: mpc}
+  estimator: {type: imm}
+
+scenario:
+  name: constant_velocity
+  duration_s: 60
+  repetitions: 20
+  seed_policy: explicit
+
+logging:
+  rosbag: true
+  csv: true
+  stdout: true
+
+metrics:
+  - position_rmse
+  - control_effort
+  - success_rate

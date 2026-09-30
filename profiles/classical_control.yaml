@@ -1,0 +1,67 @@
+# Classical Control Research Profile
+profile: classical_control
+description: >
+  For research on PID, LQR, MPC, NMPC, SMC, adaptive control, robust control,
+  and associated state estimation (Kalman filters, EKF, UKF, IMM).
+
+typical_methods:
+  - PID
+  - LQR
+  - MPC
+  - NMPC
+  - SMC (sliding mode control)
+  - adaptive control
+  - H-infinity robust control
+  - backstepping
+  - feedback linearization
+  - model-based predictive control
+
+typical_estimators:
+  - Kalman filter (KF)
+  - Extended Kalman Filter (EKF)
+  - Unscented Kalman Filter (UKF)
+  - Particle filter
+  - Interacting Multiple Model (IMM)
+  - Moving Horizon Estimation (MHE)
+
+mandatory_metrics:
+  - position_rmse
+  - tracking_mae
+  - terminal_error
+  - control_effort
+  - constraint_violations
+  - computation_time_p99
+
+recommended_metrics:
+  - rise_time
+  - settling_time
+  - overshoot
+  - actuator_saturation_fraction
+  - disturbance_rejection
+  - noise_sensitivity
+
+timing_requirements:
+  # Must document for any control claim
+  - control_period_ms
+  - computation_time_p99_ms
+  - deadline_miss_rate
+
+robustness_tests:
+  recommended:
+    - noise_scaling
+    - delay_variation
+    - model_mismatch
+    - disturbance_scaling
+
+claim_scope:
+  note: "Classical control claims are typically bounded to the evaluated operating point or range. Stability claims require formal proof or extensive empirical testing."
+
+venues:
+  - IEEE T-AC (Transactions on Automatic Control)
+  - Automatica
+  - IEEE T-CST (Control Systems Technology)
+  - IFAC World Congress
+  - ACC (American Control Conference)
+  - CDC (Conference on Decision and Control)
+  - IROS (robotics)
+  - ICRA (robotics)

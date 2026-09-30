@@ -1,0 +1,37 @@
+# $schema: ../schemas/evidence-ledger.schema.json
+# Template — copy to your project root.
+
+project:
+  name: my_project
+  domain: robotics
+
+evidence:
+
+  E001:
+    type: simulation_result   # simulation_result | sil_result | hil_result | physical_result | analytical
+    evidence_level: L2        # L0-L6 (see shared/sil-hil-real-evidence.md)
+    source:
+      file: results/EXP001/run_summary.csv
+      commit: null            # fill in git commit hash after experiment
+
+    experiment:
+      id: EXP001
+
+    protocol:
+      simulator: gazebo
+      controller: mpc
+      scenario: constant_velocity_target
+
+    metrics:
+      position_rmse_m: null     # fill after experiment
+      terminal_error_m: null
+      control_effort: null
+      success_rate: null
+      computation_time_p99_ms: null
+
+    scope:
+      environment: simulation
+      trials: 20
+      seeds: 5
+
+    verified: false           # set true only after validate_evidence_ledger.py confirms

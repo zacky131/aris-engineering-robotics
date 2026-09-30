@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "aris-engineering-robotics/experiment.schema.json",
+  "title": "Robotics Experiment Configuration",
+  "description": "Schema for EXPERIMENT.yaml — robotics/control experiment configuration.",
+  "type": "object",
+  "required": ["experiment", "platform", "scenario", "metrics"],
+  "properties": {
+    "experiment": {
+      "type": "object",
+      "required": ["id", "name", "domain"],
+      "properties": {
+        "id":       {"type": "string", "pattern": "^EXP[0-9]+$"},
+        "name":     {"type": "string"},
+        "domain":   {"type": "string", "enum": ["robotics", "control", "estimation", "planning", "navigation"]},
+        "category": {"type": "string", "enum": ["performance", "robustness", "component", "computation", "failure_envelope", "mechanism"]},
+        "priority": {"type": "string", "enum": ["MUST_RUN", "SHOULD_RUN", "NICE_TO_HAVE"]},
+        "claims":   {"type": "array", "items": {"type": "string", "pattern": "^C[0-9]+"}}
+      }
+    },
+    "platform": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type":       {"type": "string", "enum": ["numerical_simulation", "simulation", "sil", "hil", "real"]},
+        "middleware": {"type": "string", "enum": ["ros2", "ros1", "matlab", "simulink", "python", "none"]},
+        "simulator":  {"type": "string", "enum": ["gazebo", "gazebo_classic", "isaac", "pybullet", "matlab", "none"]},
+        "autopilot":  {"type": "string", "enum": ["px4", "ardupilot", "betaflight", "none"]},
+        "hardware":   {"type": "string"}
+      }
+    },
+    "system": {
+      "type": "object",
+      "properties": {
+        "robot": {
+          "type": "object",
+          "properties": {
+            "type": {"type": "string", "enum": ["uav", "ugv", "manipulator", "mobile", "humanoid", "multi"]}
+          }
+        },
+        "controller": {"type": "object", "properties": {"type": {"type": "string"}}},
+        "estimator":  {"type": "object", "properties": {"type": {"type": "string"}}}
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name":        {"type": "string"},
+        "duration_s":  {"type": "number", "minimum": 0},
+        "repetitions": {"type": "integer", "minimum": 1},
+        "seed_policy": {"type": "string", "enum": ["explicit", "fixed", "matched_random", "independent_random"]}
+      }
+    },
+    "disturbance": {
+      "type": "object",
+      "properties": {
+        "wind":             {"oneOf": [{"type": "null"}, {"type": "object"}]},
+        "measurement_noise":{"oneOf": [{"type": "null"}, {"type": "object"}]},
+        "latency_ms":       {"oneOf": [{"type": "null"}, {"type": "number"}]},
+        "dropout":          {"oneOf": [{"type": "null"}, {"type": "number"}]}
+      }
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "rosbag": {"type": "boolean"},
+        "csv":    {"type": "boolean"},
+        "stdout": {"type": "boolean"},
+        "output_dir": {"type": "string"}
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"}
+    }
+  }
+}

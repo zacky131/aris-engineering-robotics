@@ -1,0 +1,4 @@
+# Missing required fields: platform, scenario, metrics
+experiment:
+  id: BAD001
+  name: broken

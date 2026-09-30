@@ -1,0 +1,6 @@
+profile: px4_uav
+description: PX4-based UAV research with ROS 2 / Gazebo / MAVLink stack.
+typical_stack: [PX4 SITL, MAVLink, uXRCE-DDS, ROS 2, Gazebo, offboard control]
+mandatory_metrics: [position_rmse, terminal_error, mission_success, control_effort, computation_time_p99]
+watchdog_checks: [px4_connected, offboard_active, arming_state, setpoint_stream, vehicle_state_finite]
+venues: [ICRA, IROS, RA-L, T-RO, AIAA SciTech]

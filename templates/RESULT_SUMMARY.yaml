@@ -1,0 +1,20 @@
+# $schema: ../schemas/result-record.schema.json
+# Template — filled by robotics-result-analysis skill.
+
+experiment_id: EXP001
+result_files:
+  - results/EXP001/run_summary.csv
+
+metrics:
+  position_rmse_m:         {mean: null, std: null, n: null}
+  terminal_error_m:        {mean: null, std: null, n: null}
+  control_effort:          {mean: null, std: null, n: null}
+  computation_time_p99_ms: {value: null}
+  success_rate:            {value: null, n: null}
+  constraint_violations:   {value: null}
+
+anomalies: []
+
+evidence_level: L2
+
+next_skill: robotics-experiment-audit

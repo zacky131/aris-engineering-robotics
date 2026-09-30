@@ -1,0 +1,8 @@
+profile: learning_robotics
+description: Learning-based robotics and control (RL, imitation, learned dynamics).
+typical_methods: [PPO, MAPPO, IPPO, SAC, TD3, DDPG, imitation_learning, learned_dynamics]
+mandatory_metrics: [success_rate, policy_inference_time, sample_efficiency, generalization]
+training_checks: [training_stability, evaluation_episodes, seeds, ablation]
+venues: [ICRA, IROS, RA-L, NeurIPS, ICLR, CoRL]
+gpu_required: true
+note: Use ARIS run-experiment for training; robotics-result-analysis for evaluation metrics.

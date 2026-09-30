@@ -1,0 +1,63 @@
+# $schema: ../schemas/experiment.schema.json
+# Template — copy to your project and fill in.
+
+experiment:
+  id: EXP001
+  name: my_experiment_name
+  domain: robotics          # robotics | control | estimation | planning | navigation
+  category: performance     # performance | robustness | component | computation | failure_envelope
+  priority: MUST_RUN        # MUST_RUN | SHOULD_RUN | NICE_TO_HAVE
+  claims:                   # Which claims does this experiment support?
+    - C001
+
+platform:
+  type: simulation          # numerical_simulation | simulation | sil | hil | real
+  middleware: ros2           # ros2 | ros1 | matlab | simulink | python | none
+  simulator: gazebo         # gazebo | gazebo_classic | isaac | pybullet | matlab | none
+  autopilot: px4            # px4 | ardupilot | none
+  hardware: null            # e.g. "Pixhawk 6C" if HIL or real
+
+system:
+  robot:
+    type: uav               # uav | ugv | manipulator | mobile | humanoid | multi
+    model: iris_quadrotor
+  controller:
+    type: mpc
+    package: my_mpc_pkg
+    node: mpc_node
+  estimator:
+    type: imm
+    node: imm_node
+
+scenario:
+  name: constant_velocity_target
+  duration_s: 60
+  repetitions: 20
+  seed_policy: explicit     # explicit | fixed | matched_random | independent_random
+  seeds: [42, 43, 44, 45, 46]
+
+disturbance:
+  wind: null                # null | {speed_mps: 1.0, direction_deg: 0}
+  measurement_noise: null   # null | {sigma: 0.1}
+  latency_ms: null          # null | 50
+  dropout: null             # null | 0.05
+
+baseline:
+  - name: pid_controller
+    package: pid_pkg
+    node: pid_node
+  # Add more baselines as needed
+
+logging:
+  rosbag: true
+  csv: true
+  stdout: true
+  output_dir: results/EXP001/
+
+metrics:
+  - position_rmse
+  - terminal_error
+  - control_effort
+  - computation_time_p99
+  - constraint_violations
+  - success_rate

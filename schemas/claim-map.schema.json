@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claim Map",
+  "type": "object",
+  "required": ["claims"],
+  "properties": {
+    "claims": {
+      "type": "object",
+      "patternProperties": {
+        "^C[0-9]+$": {
+          "type": "object",
+          "required": ["text", "evidence", "status"],
+          "properties": {
+            "text": {"type": "string"},
+            "evidence": {"type": "array", "items": {"type": "string", "pattern": "^E[0-9]+$"}},
+            "evidence_level": {"type": "string", "enum": ["L0","L1","L2","L3","L4","L5","L6"]},
+            "status": {"type": "string", "enum": ["supported", "partial", "unsupported"]},
+            "permitted_language": {"type": "array", "items": {"type": "string"}},
+            "prohibited_extensions": {"type": "array", "items": {"type": "string"}},
+            "missing_evidence": {"type": "array", "items": {"type": "string"}},
+            "next_experiments": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    }
+  }
+}

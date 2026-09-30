@@ -1,0 +1,31 @@
+# $schema: ../schemas/claim-map.schema.json
+# Template — copy to your project root.
+
+claims:
+
+  C001:
+    text: >
+      The proposed controller indicates improved tracking accuracy
+      compared to the evaluated baseline under the tested scenarios.
+
+    evidence:
+      - E001
+
+    evidence_level: L2        # highest level among linked evidence
+
+    status: partial           # supported | partial | unsupported
+
+    permitted_language:
+      - indicates
+      - supports
+
+    prohibited_extensions:
+      - real-world generalization
+      - deployment readiness
+
+    missing_evidence:
+      - physical experiment (L5)
+      - diverse scenario types
+
+    next_experiments:
+      - EXP_robustness: disturbance sweep

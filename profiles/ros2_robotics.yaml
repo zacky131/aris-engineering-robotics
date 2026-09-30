@@ -1,0 +1,6 @@
+profile: ros2_robotics
+description: ROS 2 mobile robotics, navigation, SLAM, sensor fusion.
+typical_stack: [ROS 2, Gazebo, Nav2, SLAM, rosbag, TF, sensor fusion]
+mandatory_metrics: [success_rate, mission_completion_time, collision_rate, path_length]
+ros_checks: [topic_hz, node_alive, tf_available, rosbag_recording]
+venues: [ICRA, IROS, RA-L, T-RO, RAS]

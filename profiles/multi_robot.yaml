@@ -1,0 +1,6 @@
+profile: multi_robot
+description: Multi-robot and multi-UAV systems including MARL coordination.
+typical_stack: [ROS 2, Gazebo, multi-agent framework]
+mandatory_metrics: [team_success_rate, collision_rate, task_allocation_efficiency, completion_time]
+additional_metrics: [communication_overhead, coordination_latency, coverage_fraction, fairness_index]
+venues: [ICRA, IROS, RA-L, AAMAS, ICLR (if learning-based)]

@@ -1,0 +1,5 @@
+profile: hybrid_ai_control
+description: Hybrid learned + classical architectures (e.g. learned cost function + MPC).
+mandatory_metrics: [position_rmse, control_effort, policy_inference_time, success_rate]
+note: Report both classical and learning metrics. Training uses ARIS pipeline; evaluation uses robotics pipeline.
+venues: [ICRA, IROS, RA-L, T-RO, NeurIPS, CoRL]

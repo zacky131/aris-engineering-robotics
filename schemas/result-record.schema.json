@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Result Summary Record",
+  "type": "object",
+  "required": ["experiment_id", "result_files", "metrics"],
+  "properties": {
+    "experiment_id": {"type": "string"},
+    "result_files": {"type": "array", "items": {"type": "string"}},
+    "metrics": {"type": "object"},
+    "anomalies": {"type": "array", "items": {"type": "string"}},
+    "evidence_level": {"type": "string", "enum": ["L0","L1","L2","L3","L4","L5","L6"]},
+    "next_skill": {"type": "string"}
+  }
+}
