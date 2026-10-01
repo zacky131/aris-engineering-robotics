@@ -6,7 +6,51 @@ Format: [Semantic Versioning](https://semver.org/)
 
 ---
 
+## [0.2.0] — 2026-10-01
+
+### Added — Google Antigravity support
+
+**Installer**
+- `--platform antigravity` support in `tools/install_skills.sh`
+- Project-local install to `.agents/skills/` (Antigravity native path)
+- User-wide install to `~/.gemini/config/skills/`
+- AGENTS.md safe managed-block patching (non-destructive)
+- Workflow files install to `.agents/workflows/`
+- `--list-platforms` / `--list-skills` options
+- `--bootstrap` flag (auto-calls `bootstrap_upstreams.sh`)
+- Shared dependency installation (`_shared`, `shared-references`)
+- Structured YAML manifest (`installed-manifest.yaml`)
+
+**Upstream bootstrap**
+- `tools/bootstrap_upstreams.sh` — fetches upstreams into `vendor/upstreams/`
+- 5-level resolution: env var → config → sibling → vendor → error
+
+**Antigravity templates**
+- `templates/antigravity/AGENTS.md` — persistent project rules with managed markers
+- `templates/antigravity/workflows/research-robotics.md`
+- `templates/antigravity/workflows/experiment-robotics.md`
+- `templates/antigravity/workflows/analyze-robotics.md`
+- `templates/antigravity/workflows/write-engineering-paper.md`
+
+**Skill metadata**
+- Added `antigravity` to `platforms:` in all 11 native skills
+
+**Validation**
+- `validate_installation.py` supports `--platform antigravity`
+- SKILL.md frontmatter validation, shared dependency checks
+
+**Documentation**
+- `docs/ANTIGRAVITY.md` — full Antigravity guide
+- `docs/PLATFORM_COMPATIBILITY.md` — three-platform capability matrix
+- `README.md` — Antigravity quickstart section
+
+**Tests**
+- `tests/test_antigravity.py` — 7 Antigravity tests (A–G)
+
+---
+
 ## [0.1.0] — 2026-09-30
+
 
 ### Added
 

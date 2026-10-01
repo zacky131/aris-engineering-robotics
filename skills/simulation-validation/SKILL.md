@@ -8,6 +8,7 @@ description: >
 platforms:
   - codex
   - claude
+  - antigravity
 ---
 
 # Skill: simulation-validation

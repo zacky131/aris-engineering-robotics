@@ -1,6 +1,7 @@
 # ARIS Engineering Robotics
 
 > **Research orchestration × robotics/control engineering × engineering paper skills — unified.**
+> Supports **Codex CLI**, **Claude Code**, and **Google Antigravity**.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -65,18 +66,29 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for Mermaid diagrams.
 
 ## Installation
 
+ARIS Engineering Robotics supports three AI coding agent platforms:
+- **Codex CLI** (OpenAI)
+- **Claude Code** (Anthropic)
+- **Google Antigravity** (Google DeepMind)
+
+See [`docs/PLATFORM_COMPATIBILITY.md`](docs/PLATFORM_COMPATIBILITY.md) for a full capability matrix.
+
 ### Prerequisites
 
-- Both sibling repositories cloned at peer level:
-  ```
-  parent/
-  ├── Auto-claude-code-research-in-sleep/
-  ├── engineering-paper-skills/
-  └── aris-engineering-robotics/   ← this repo
-  ```
 - Bash ≥ 4
 - Python ≥ 3.9 (for validation scripts)
-- Codex CLI or Claude Code configured
+- One of: Codex CLI, Claude Code, Google Antigravity
+- Upstream repositories (auto-fetched by bootstrap script if not present as siblings)
+
+### Step 0 — Bootstrap upstream dependencies
+
+```bash
+bash tools/bootstrap_upstreams.sh
+```
+
+This checks for `Auto-claude-code-research-in-sleep` and `engineering-paper-skills`.
+If not found as sibling clones, they are fetched into `vendor/upstreams/` automatically.
+
 
 ### Install skills (Codex, user-wide)
 
@@ -96,16 +108,46 @@ bash tools/install_skills.sh --platform codex --project /path/to/your/project
 bash tools/install_skills.sh --platform claude
 ```
 
+## Google Antigravity
+
+```bash
+# Project-local install (recommended)
+bash tools/install_skills.sh \
+    --platform antigravity \
+    --project ~/my_robotics_project
+
+# User-wide install
+bash tools/install_skills.sh --platform antigravity
+```
+
+This installs skills to `.agents/skills/`, copies `AGENTS.md`, and sets up
+Antigravity workflow files. See [`docs/ANTIGRAVITY.md`](docs/ANTIGRAVITY.md) for the full guide.
+
 ### Validate installation
 
 ```bash
-python tools/validate_installation.py
+# Codex
+python3 tools/validate_installation.py --platform codex
+
+# Antigravity
+python3 tools/validate_installation.py \
+    --platform antigravity \
+    --dest /path/to/project/.agents/skills \
+    --project /path/to/project
 ```
 
 ### Dry run (no changes made)
 
 ```bash
 bash tools/install_skills.sh --platform codex --dry-run
+bash tools/install_skills.sh --platform antigravity --project /path --dry-run
+```
+
+### List available platforms and skills
+
+```bash
+bash tools/install_skills.sh --list-platforms
+bash tools/install_skills.sh --list-skills
 ```
 
 ---

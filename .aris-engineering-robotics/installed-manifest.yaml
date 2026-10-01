@@ -1,0 +1,60 @@
+# ARIS Engineering Robotics — install manifest
+# Generated: 2026-10-01T13:41:03+09:00
+platform: antigravity
+destination: /tmp/tmppx3rgin2/.agents/skills
+project: /tmp/tmppx3rgin2
+
+managed:
+  skills:
+    - controller-tuning
+    - research-pipeline-robotics
+    - robotics-experiment-audit
+    - robotics-experiment-plan
+    - robotics-research-router
+    - robotics-result-analysis
+    - robotics-result-to-claim
+    - robotics-watchdog
+    - run-robotics-experiment
+    - sil-hil-validation
+    - simulation-validation
+    - research-lit
+    - idea-discovery
+    - idea-discovery-robot
+    - novelty-check
+    - experiment-plan
+    - research-implement-feature
+    - run-experiment
+    - monitor-experiment
+    - training-check
+    - analyze-results
+    - ablation-planner
+    - experiment-audit
+    - result-to-claim
+    - paper-writing
+    - paper-claim-audit
+    - research-review
+    - rebuttal
+    - paper-compile
+    - research-pipeline
+    - dse-loop
+    - claims-drafting
+    - paper-write
+    - citation-audit
+    - formula-derivation
+    - engineering-writing
+    - engineering-polishing
+    - engineering-paper-auditor
+    - engineering-figure-table
+    - engineering-response
+    - engineering-validation
+    - engineering-paper-router
+    - engineering-paper-coach
+  shared:
+    - shared-references
+    - _shared
+  agents_md: true
+  workflows:
+    - analyze-robotics.md
+    - experiment-robotics.md
+    - research-robotics.md
+    - write-engineering-paper.md

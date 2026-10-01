@@ -7,6 +7,7 @@ description: >
 platforms:
   - codex
   - claude
+  - antigravity
 ---
 
 # Skill: run-robotics-experiment
