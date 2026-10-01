@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "aris-engineering-robotics/anchor-paper-record.schema.json",
+  "title": "Anchor Paper Record",
+  "description": "Schema for ANCHOR_PAPER_RECORD.yaml — structured extraction from an anchor research paper.",
+  "type": "object",
+  "required": ["paper_id", "source"],
+  "properties": {
+    "paper_id": {"type": "string", "pattern": "^AP[0-9]+$"},
+    "source": {
+      "type": "object",
+      "required": ["file", "category"],
+      "properties": {
+        "file": {"type": "string"},
+        "category": {"type": "string", "enum": ["foundational","closest_work","methodology","benchmark","uncategorized"]},
+        "sha256": {"oneOf": [{"type": "null"}, {"type": "string"}]}
+      }
+    },
+    "bibliography": {
+      "type": "object",
+      "properties": {
+        "title": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "authors": {"type": "array", "items": {"type": "string"}},
+        "year": {"oneOf": [{"type": "null"}, {"type": "integer"}]},
+        "venue": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "doi": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "url": {"oneOf": [{"type": "null"}, {"type": "string"}]}
+      }
+    },
+    "research_problem": {
+      "type": "object",
+      "properties": {
+        "summary": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "motivation": {"oneOf": [{"type": "null"}, {"type": "string"}]}
+      }
+    },
+    "method": {
+      "type": "object",
+      "properties": {
+        "name": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "class": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "description": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "key_components": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "system": {
+      "type": "object",
+      "properties": {
+        "domain": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "robot_type": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "controller": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "estimator": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "planner": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "middleware": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "simulator": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "autopilot": {"oneOf": [{"type": "null"}, {"type": "string"}]},
+        "hardware": {"oneOf": [{"type": "null"}, {"type": "string"}]}
+      }
+    },
+    "experimental_design": {
+      "type": "object",
+      "properties": {
+        "scenarios": {"type": "array", "items": {"type": "string"}},
+        "baselines": {"type": "array", "items": {"type": "string"}},
+        "metrics": {"type": "array", "items": {"type": "string"}},
+        "repetitions": {"oneOf": [{"type": "null"}, {"type": "integer"}]},
+        "datasets": {"type": "array", "items": {"type": "string"}},
+        "simulation_or_real": {"oneOf": [{"type": "null"}, {"type": "string"}]}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "level": {"type": "string", "enum": ["L0","L1","L2","L3","L4","L5","L6","unknown"]},
+        "main_findings": {"type": "array", "items": {"type": "string"}},
+        "quantitative_results": {"type": "array", "items": {"type": "string"}},
+        "qualitative_results": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "limitations": {
+      "type": "object",
+      "properties": {
+        "explicit_author_limitations": {"type": "array", "items": {"type": "string"}},
+        "inferred_limitations": {"type": "array", "items": {
+          "type": "object",
+          "properties": {
+            "limitation": {"type": "string"},
+            "basis": {"type": "string"},
+            "confidence": {"type": "string", "enum": ["low","medium","high"]}
+          }
+        }}
+      }
+    },
+    "future_work": {
+      "type": "object",
+      "properties": {
+        "explicit_author_future_work": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "references_to_follow": {
+      "type": "object",
+      "properties": {
+        "backward_candidates": {"type": "array", "items": {"type": "string"}},
+        "method_candidates": {"type": "array", "items": {"type": "string"}},
+        "benchmark_candidates": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "relevance": {
+      "type": "object",
+      "properties": {
+        "relation_to_current_project": {"type": "array", "items": {"type": "string"}},
+        "potentially_reusable_methods": {"type": "array", "items": {"type": "string"}},
+        "potentially_reusable_metrics": {"type": "array", "items": {"type": "string"}},
+        "potential_conflicts": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "gap_hypotheses": {"type": "array", "items": {"type": "string"}},
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "bibliography": {"type": "string", "enum": ["low","medium","high"]},
+        "method": {"type": "string", "enum": ["low","medium","high"]},
+        "experimental_design": {"type": "string", "enum": ["low","medium","high"]},
+        "gaps": {"type": "string", "enum": ["low","medium","high"]}
+      }
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -35,12 +35,23 @@ Not all six questions apply to every project. Explicitly classify which apply.
 ### Step 1 — Read research context
 
 Load if present:
+- `research/ANCHOR_PAPER_SYNTHESIS.md` — synthesized methods, baselines, and evaluation protocols
+- `research/RESEARCH_GAP_MAP.md` — verified gap states and closest prior works
 - `RESEARCH_CONTRACT.md`
 - `CLAIM_MAP.yaml` (initial claims if drafted)
 - `profiles/*.yaml` for the active profile
 - Any existing experiment scripts or configs
 
-### Step 2 — List candidate experiments
+### Step 2 — Anchor & literature alignment check
+
+If anchor paper outputs or literature records are present, report explicitly:
+- **Baseline provenance**: which baseline choices came from anchor papers vs current literature
+- **Community metrics**: which metrics appear to be standard across the anchor papers and field
+- **Gap alignment**: which experiment scenarios test the verified gaps in `RESEARCH_GAP_MAP.md`
+- **Novelty distinction**: which specific experiments directly compare and distinguish the proposed method from the closest anchor paper(s)
+- **Scientific rigor invariant**: Do NOT blindly copy weak protocols or flawed assumptions from anchor papers (e.g., inadequate repetitions, absence of disturbances, or uncalibrated sensors). Upgrade to standard scientific evaluation rigor.
+
+### Step 3 — List candidate experiments
 
 For each research question that applies:
 - Define one or more candidate experiments
@@ -48,14 +59,14 @@ For each research question that applies:
 - State what metric it produces
 - State which claim(s) it supports
 
-### Step 3 — Classify each experiment
+### Step 4 — Classify each experiment
 
 Assign priority:
 - `MUST_RUN` — paper cannot be submitted without this
 - `SHOULD_RUN` — significantly strengthens claims
 - `NICE_TO_HAVE` — additional evidence; run if time/resources allow
 
-### Step 4 — Assess feasibility
+### Step 5 — Assess feasibility
 
 For each MUST_RUN experiment:
 - Is the simulator available?
@@ -64,12 +75,12 @@ For each MUST_RUN experiment:
 - What is the estimated compute budget?
 - Is manual hardware interaction required? (if so, flag as HARDWARE_GATE)
 
-### Step 5 — Generate run matrix
+### Step 6 — Generate run matrix
 
 | ExpID | Name | Question | Platform | Baseline | Repetitions | MUST/SHOULD/NICE | Claim | Output metric |
 |---|---|---|---|---|---|---|---|---|
 
-### Step 6 — Identify missing capabilities
+### Step 7 — Identify missing capabilities
 
 List any:
 - missing implementation components
@@ -77,11 +88,13 @@ List any:
 - missing simulator configurations
 - hardware dependencies not yet met
 
-### Step 7 — Output
+### Step 8 — Output
 
 Produce:
 1. The run matrix table above
 2. A filled `EXPERIMENT.yaml` draft for each MUST_RUN experiment (using template)
+3. Anchor and literature provenance summary (baselines, community metrics, gap alignment)
+4. A risk and dependency log
 3. A risk and dependency log
 
 ## Example partial plan

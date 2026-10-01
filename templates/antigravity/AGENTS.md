@@ -9,6 +9,17 @@ Skills are available in `.agents/skills/`. Call them by name in your prompts.
 
 ---
 
+## Anchor Papers
+
+If `anchor_papers/` contains PDF files, process them with
+`anchor-paper-intake` before starting broad literature search,
+novelty analysis, idea generation, or experiment planning.
+
+Anchor-paper limitations are hypotheses, not confirmed current research gaps.
+Verify them independently against recent literature.
+
+---
+
 ## Research Routing
 
 **For unfamiliar robotics/control research tasks:**

@@ -1,0 +1,15 @@
+# $schema: ../schemas/anchor-manifest.schema.json
+# Managed by anchor-paper-intake. Do not edit manually.
+
+papers:
+  AP001:
+    file: anchor_papers/closest_work/paper1.pdf
+    category: closest_work
+    sha256: null   # filled on first processing
+    processed: false
+
+  # AP002:
+  #   file: anchor_papers/foundational/paper2.pdf
+  #   category: foundational
+  #   sha256: null
+  #   processed: false

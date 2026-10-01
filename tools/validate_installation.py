@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 ROBOTICS_SKILLS = [
+    "anchor-paper-intake",
     "robotics-research-router",
     "robotics-experiment-plan",
     "run-robotics-experiment",

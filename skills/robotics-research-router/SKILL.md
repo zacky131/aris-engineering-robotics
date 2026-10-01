@@ -36,6 +36,8 @@ Multiple profiles may be active simultaneously (e.g., `px4_uav + classical_contr
 ### Step 1 — Inspect research context
 
 Read the following if present:
+- `anchor_papers/` — check whether this directory exists and contains PDFs (either at root or in `foundational/`, `closest_work/`, `methodology/`, `benchmark/`, `uncategorized/`).
+  Check if `research/ANCHOR_MANIFEST.yaml` exists and whether all anchor PDFs are already processed and unchanged.
 - `RESEARCH_CONTRACT.md` or equivalent problem statement
 - Any `EXPERIMENT.yaml` or experiment configuration files
 - Any existing code (`*.py`, `*.cpp`, `*.launch.py`, `*.yaml`)
@@ -62,41 +64,56 @@ State your confidence:
 
 ### Step 4 — Recommend skills
 
-Based on profile, recommend the next skills in order:
+**Anchor Paper Check (Stage 0):**
+- If `anchor_papers/` contains PDFs and either outputs (`research/ANCHOR_PAPER_SYNTHESIS.md`, etc.) are missing or PDFs have changed:
+  Route first to `anchor-paper-intake`. Broad literature search, novelty checking, and experiment design must NOT proceed until anchor intake is complete.
+- If anchor outputs already exist and PDFs are unchanged, anchor intake is complete; proceed to next recommended skills.
+- If no anchor papers exist, proceed directly with standard research flow.
 
-1. `robotics-experiment-plan` — design the experiment
-2. `run-robotics-experiment` — execute it
-3. `robotics-watchdog` — monitor health
-4. `robotics-result-analysis` — analyse results
-5. `robotics-experiment-audit` — audit integrity
-6. `robotics-result-to-claim` — generate claims
-7. `engineering-paper-auditor` — audit manuscript
-8. `engineering-writing` — draft/revise
+**Downstream Skills:**
+Based on profile and context, recommend the next skills in order:
+
+1. `anchor-paper-intake` (if anchor papers present and unindexed)
+2. `robotics-experiment-plan` — design the experiment
+3. `run-robotics-experiment` — execute it
+4. `robotics-watchdog` — monitor health
+5. `robotics-result-analysis` — analyse results
+6. `robotics-experiment-audit` — audit integrity
+7. `robotics-result-to-claim` — generate claims
+8. `engineering-paper-auditor` — audit manuscript
+9. `engineering-writing` — draft/revise
 
 For paper-only tasks:
 - Route directly to `engineering-paper-router`
 
 For literature/novelty tasks:
-- Route to ARIS `research-lit`, `idea-discovery`, `novelty-check`
+- Route to ARIS `research-lit`, `idea-discovery`, `novelty-check` (consuming `LITERATURE_SEARCH_PLAN.md` if anchor papers were processed)
 
 ### Step 5 — Report
 
 Output:
 
 ```yaml
+anchor_papers:
+  detected: true          # or false
+  count: 3                # number of anchor PDFs found
+  processed: false        # true if ANCHOR_MANIFEST.yaml is up-to-date
+  required_next_skill: anchor-paper-intake   # omitted or null if already processed
+
 detected_profiles:
   - classical_control     # HIGH
   - px4_uav               # HIGH
 
 recommended_skills_in_order:
-  1. robotics-experiment-plan
-  2. run-robotics-experiment
-  3. robotics-watchdog
-  4. robotics-result-analysis
-  5. robotics-experiment-audit
-  6. robotics-result-to-claim
-  7. engineering-paper-auditor
-  8. engineering-writing
+  1. anchor-paper-intake   # if unindexed anchor papers exist
+  2. robotics-experiment-plan
+  3. run-robotics-experiment
+  4. robotics-watchdog
+  5. robotics-result-analysis
+  6. robotics-experiment-audit
+  7. robotics-result-to-claim
+  8. engineering-paper-auditor
+  9. engineering-writing
 
 profile_notes: >
   MPC controller targeting UAV interception. PX4 SITL + Gazebo stack
@@ -114,4 +131,5 @@ active_shared_rules:
 - Do not assume a profile without evidence.
 - A project may have multiple active profiles; list all of them.
 - Do not route paper tasks to robotics experiment skills.
+- If `anchor_papers/` contains PDFs that are unindexed or modified, `anchor-paper-intake` must precede broad search or experiment planning.
 - If no profile can be detected, ask the user one clarifying question.

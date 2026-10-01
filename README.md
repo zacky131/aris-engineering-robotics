@@ -78,16 +78,15 @@ See [`docs/PLATFORM_COMPATIBILITY.md`](docs/PLATFORM_COMPATIBILITY.md) for a ful
 - Bash ≥ 4
 - Python ≥ 3.9 (for validation scripts)
 - One of: Codex CLI, Claude Code, Google Antigravity
-- Upstream repositories (auto-fetched by bootstrap script if not present as siblings)
+- **100% Self-Contained**: All 50 research, robotics, and paper-writing skills are pre-bundled directly in `skills/` and `shared/` with zero external dependencies required!
 
-### Step 0 — Bootstrap upstream dependencies
+### Optional — Sync with upstream repositories
 
 ```bash
-bash tools/bootstrap_upstreams.sh
+bash tools/sync_upstreams.sh
 ```
 
-This checks for `Auto-claude-code-research-in-sleep` and `engineering-paper-skills`.
-If not found as sibling clones, they are fetched into `vendor/upstreams/` automatically.
+All 50 skills are already bundled and ready to install immediately out-of-the-box. If you ever wish to fetch or synchronize future upstream updates from `Auto-claude-code-research-in-sleep` or `engineering-paper-skills`, `tools/sync_upstreams.sh` and `tools/bootstrap_upstreams.sh` can pull them.
 
 
 ### Install skills (Codex, user-wide)
@@ -152,29 +151,182 @@ bash tools/install_skills.sh --list-skills
 
 ---
 
-## Quick Start
+## Start Research from Anchor Papers
 
-See [`docs/QUICKSTART.md`](docs/QUICKSTART.md) for full walkthroughs.
+ARIS Engineering Robotics supports **Anchor-Paper-First Research**. Instead of beginning with broad, unstructured web search, you can ground the AI agent with specific baseline papers, competitor approaches, and benchmark datasets.
 
-### MPC UAV interception experiment (Example A)
+```bash
+# 1. Initialize research project structure
+bash tools/init_research_project.sh ~/my_uav_project
 
+# 2. Place your anchor PDFs in category subfolders:
+#    ~/my_uav_project/anchor_papers/foundational/
+#    ~/my_uav_project/anchor_papers/closest_work/
+#    ~/my_uav_project/anchor_papers/methodology/
+#    ~/my_uav_project/anchor_papers/benchmark/
 ```
-1. Open Codex or Claude in your project directory.
-2. Call: robotics-research-router
-   → profile detected: classical_control + px4_uav
-3. Call: robotics-experiment-plan
-   → experiment matrix generated
-4. Fill in: templates/EXPERIMENT.yaml
-5. Call: run-robotics-experiment
-6. Call: robotics-watchdog  (monitor)
-7. Call: robotics-result-analysis
-8. Call: robotics-experiment-audit
-9. Call: robotics-result-to-claim  → CLAIM_MAP.yaml updated
-10. Call: engineering-paper-auditor
-11. Call: engineering-writing
+
+When anchor papers are present, the agent automatically executes **Stage 0 (`anchor-paper-intake`)** to generate:
+- `research/ANCHOR_PAPER_INDEX.md` (structured paper extractions)
+- `research/ANCHOR_PAPER_SYNTHESIS.md` (cross-paper comparison matrix)
+- `research/ANCHOR_GAP_HYPOTHESES.md` (gap hypotheses marked `UNVERIFIED`)
+- `research/LITERATURE_SEARCH_PLAN.md` (targeted citation queries)
+- `research/RESEARCH_GAP_MAP.md` (gap lifecycle tracker)
+
+> [!NOTE]
+> Anchor-paper limitations are treated strictly as **hypotheses**, never as confirmed facts. Broad literature search and novelty verification independently confirm whether gaps remain unresolved in the state of the art.
+> See [`docs/ANCHOR_PAPERS.md`](docs/ANCHOR_PAPERS.md) for full details.
+
+---
+
+## End-to-End Sample Prompt Workflow: ARIS to Engineering Paper
+
+Below is an end-to-end prompt sequence demonstrating a complete research cycle — from user anchor papers and ARIS literature search to robotics experiment execution and a publication-ready IEEE/AIAA manuscript.
+
+### Phase 0: Anchor Paper Intake & Grounding
+
+**User Prompt:**
+```text
+I have initialized this project and placed 4 PDFs into anchor_papers/closest_work/ and anchor_papers/benchmark/.
+Please inspect the anchor papers, extract their methods, baselines, and reported limitations, and build a literature search plan.
+```
+
+**Agent Action & Response:**
+```text
+1. Discovers PDFs: anchor_papers/closest_work/chen2024_nmpc_uav.pdf, etc.
+2. Invokes: anchor-paper-intake
+3. Generates:
+   - research/ANCHOR_MANIFEST.yaml (hashes & IDs: AP001..AP004)
+   - research/ANCHOR_PAPER_INDEX.md (method parameters, disturbance models, metrics)
+   - research/ANCHOR_PAPER_SYNTHESIS.md (cross-paper comparison matrix)
+   - research/ANCHOR_GAP_HYPOTHESES.md (G001: Adaptive IMM-MPC under rapid maneuvers; Status: UNVERIFIED)
+   - research/LITERATURE_SEARCH_PLAN.md (seed citation queries)
 ```
 
 ---
+
+### Phase 1: ARIS Literature Search & Novelty Verification
+
+**User Prompt:**
+```text
+Now execute the literature search using research/LITERATURE_SEARCH_PLAN.md.
+Verify whether gap hypothesis G001 has already been solved by recent 2024-2026 publications, and check novelty for our proposed adaptive-horizon IMM-MPC method.
+```
+
+**Agent Action & Response:**
+```text
+1. Invokes: research-lit (targeted backward/forward search from AP001 seeds)
+2. Discovers recent competitor works (e.g. Wang et al., 2025)
+3. Invokes: novelty-check
+4. Updates: research/RESEARCH_GAP_MAP.md
+   - G001 promoted: UNVERIFIED → SUPPORTED_AS_CURRENT_GAP
+5. Invokes: research-refine (sharpens problem scope and non-claims)
+6. Invokes: claims-drafting
+   - Populates CLAIM_MAP.yaml with initial hypotheses:
+     C001: "Reduces miss distance by >= 25% under target acceleration steps" (unsupported)
+     C002: "Guarantees solver execution <= 15 ms at 50 Hz" (unsupported)
+```
+
+---
+
+### Phase 2: Robotics Experiment Design & Execution
+
+**User Prompt:**
+```text
+Use robotics-research-router to confirm our active profiles, then use robotics-experiment-plan to design our run matrix addressing Q1 (Performance), Q4 (Robustness), and Q5 (Computation).
+```
+
+**Agent Action & Response:**
+```text
+1. Invokes: robotics-research-router
+   - Detected profiles: classical_control + px4_uav (HIGH confidence)
+2. Invokes: robotics-experiment-plan (incorporates ANCHOR_PAPER_SYNTHESIS.md baselines)
+   - Matrix generated:
+     * EXP001: Proposed IMM-MPC vs Baseline NMPC (AP001) under step maneuvers (MUST_RUN -> C001)
+     * EXP002: Wind gust robustness sweep 0-3 m/s (MUST_RUN -> C001)
+     * EXP003: Real-time execution profile on companion computer SITL (MUST_RUN -> C002)
+   - Drafts EXPERIMENT.yaml for EXP001..EXP003
+```
+
+**User Prompt:**
+```text
+Run experiment EXP001 in PX4 Gazebo SITL and monitor execution with the watchdog.
+```
+
+**Agent Action & Response:**
+```text
+1. Invokes: run-robotics-experiment (checks HARDWARE_GATE: SITL approved)
+2. Invokes: robotics-watchdog (monitors ROS 2 topic rates, divergence, real-time factor >= 0.95)
+3. Experiment completes: logs captured to results/exp001_raw.csv
+```
+
+---
+
+### Phase 3: Result Analysis, Evidence Audit & Claim Governance
+
+**User Prompt:**
+```text
+Analyze the simulation results, run the robotics experiment audit, and update our evidence ledger and claim map.
+```
+
+**Agent Action & Response:**
+```text
+1. Invokes: robotics-result-analysis
+   - Calculates miss distance (mean, 95th percentile) and solve time
+   - Outputs RESULT_SUMMARY.yaml
+2. Invokes: robotics-experiment-audit
+   - Confirms baseline fairness, seed counts, and simulation validity (L3 SIL)
+3. Invokes: robotics-result-to-claim
+   - Appends verified record to EVIDENCE_LEDGER.yaml
+   - Updates CLAIM_MAP.yaml:
+     C001: status promoted to "supported" (Evidence Level: L3)
+     C002: status promoted to "supported" (Evidence Level: L3)
+```
+
+---
+
+### Phase 4: Engineering Paper Writing & Verification
+
+**User Prompt:**
+```text
+We have verified evidence for C001 and C002. Use engineering-paper-auditor to check our paper story spine, then use engineering-writing and engineering-figure-table to draft Section IV (Results).
+```
+
+**Agent Action & Response:**
+```text
+1. Invokes: engineering-paper-auditor
+   - Validates story spine: problem -> gap -> method -> evidence -> boundary
+   - Ensures no claim exceeds L3 (simulation) to real-world overclaiming
+2. Invokes: engineering-writing
+   - Drafts Section IV with calibrated claims linked to EXP001-EXP003
+3. Invokes: engineering-figure-table
+   - Generates trajectory plots and comparison tables tracing directly to results/
+4. Invokes: engineering-polishing
+   - Refines control terminology, transitions, and mathematical notation
+5. Invokes: engineering-validation
+   - Verifies target venue requirements (IEEE Transactions / ICRA format)
+```
+
+---
+
+## Quick Start
+
+See [`docs/QUICKSTART.md`](docs/QUICKSTART.md) for additional walkthroughs.
+
+### Quick Workflow Overview (Command Summary)
+
+```
+1. Initialize: bash tools/init_research_project.sh ./my_project
+2. Add PDFs:   cp *.pdf ./my_project/anchor_papers/closest_work/
+3. Open Codex / Claude / Antigravity in your project directory
+4. Stage 0:    Call anchor-paper-intake
+5. Stage 1-4:  Call research-lit & novelty-check
+6. Stage 5-6:  Call research-refine & claims-drafting
+7. Stage 7:    Call robotics-research-router & robotics-experiment-plan
+8. Stage 8-10: Call run-robotics-experiment & robotics-watchdog
+9. Stage 11-13:Call robotics-result-analysis, robotics-experiment-audit, robotics-result-to-claim
+10. Stage 14+: Call engineering-paper-auditor, engineering-writing, engineering-validation
+```
 
 ## Usage Instructions
 

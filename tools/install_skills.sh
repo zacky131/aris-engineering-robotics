@@ -47,7 +47,7 @@ while [[ $# -gt 0 ]]; do
       echo "  citation-audit, formula-derivation, paper-write"
       echo ""
       echo "=== Robotics / Control Skills ==="
-      echo "  robotics-research-router, robotics-experiment-plan"
+      echo "  anchor-paper-intake, robotics-research-router, robotics-experiment-plan"
       echo "  run-robotics-experiment, robotics-watchdog"
       echo "  robotics-result-analysis, controller-tuning"
       echo "  robotics-experiment-audit, simulation-validation"
@@ -171,16 +171,12 @@ echo "Upstream resolution:"
 if [[ -n "$ARIS_REPO" ]]; then
   echo "  ARIS repo: $ARIS_REPO"
 else
-  echo "  ARIS repo: NOT FOUND (ARIS skills will be skipped)"
-  echo "             Fix: export ARIS_REPO=/path/to/Auto-claude-code-research-in-sleep"
-  echo "             Or:  bash tools/bootstrap_upstreams.sh"
+  echo "  ARIS repo: NOT FOUND (using self-contained bundled skills)"
 fi
 if [[ -n "$EPS_REPO" ]]; then
   echo "  EPS repo : $EPS_REPO"
 else
-  echo "  EPS repo : NOT FOUND (EPS skills will be skipped)"
-  echo "             Fix: export EPS_REPO=/path/to/engineering-paper-skills"
-  echo "             Or:  bash tools/bootstrap_upstreams.sh"
+  echo "  EPS repo : NOT FOUND (using self-contained bundled skills)"
 fi
 echo ""
 
@@ -243,50 +239,28 @@ install_shared() {
   fi
 }
 
-# ── Install new robotics skills ───────────────────────────────────────────────
-echo "--- Installing robotics/control skills ---"
+# ── Install all bundled skills (robotics, research, engineering paper) ────────
+echo "--- Installing all skills (robotics, research, engineering paper) ---"
 for skill_dir in "$REPO_ROOT/skills"/*/; do
   install_skill "$skill_dir"
 done
 
-# ── Install ARIS upstream skills + shared dependencies ──────────────────────
-ARIS_SKILLS=(
-  research-lit idea-discovery idea-discovery-robot novelty-check
-  experiment-plan research-implement-feature run-experiment
-  monitor-experiment training-check analyze-results ablation-planner
-  experiment-audit result-to-claim paper-writing paper-claim-audit
-  research-review rebuttal paper-compile research-pipeline dse-loop
-  claims-drafting paper-write citation-audit formula-derivation
-)
-
-if [[ -n "$ARIS_REPO" && -d "$ARIS_REPO/skills" ]]; then
-  echo ""
-  echo "--- Installing ARIS upstream skills ---"
-  for skill in "${ARIS_SKILLS[@]}"; do
-    install_skill "$ARIS_REPO/skills/$skill"
-  done
-  # Install ARIS shared-references dependency
-  echo ""
-  echo "--- Installing ARIS shared dependencies ---"
+# ── Install shared dependencies ──────────────────────────────────────────────
+echo ""
+echo "--- Installing shared dependencies ---"
+if [[ -d "$REPO_ROOT/shared/shared-references" ]]; then
+  install_shared "$REPO_ROOT/shared/shared-references"
+elif [[ -d "$REPO_ROOT/skills/shared-references" ]]; then
+  install_shared "$REPO_ROOT/skills/shared-references"
+elif [[ -n "$ARIS_REPO" && -d "$ARIS_REPO/skills/shared-references" ]]; then
   install_shared "$ARIS_REPO/skills/shared-references"
 fi
 
-# ── Install EPS upstream skills + shared dependencies ────────────────────────
-EPS_SKILLS=(
-  engineering-writing engineering-polishing engineering-paper-auditor
-  engineering-figure-table engineering-response engineering-validation
-  engineering-paper-router engineering-paper-coach
-)
-
-if [[ -n "$EPS_REPO" && -d "$EPS_REPO/skills" ]]; then
-  echo ""
-  echo "--- Installing EPS upstream skills ---"
-  for skill in "${EPS_SKILLS[@]}"; do
-    install_skill "$EPS_REPO/skills/$skill"
-  done
-  # Install EPS _shared dependency
-  echo ""
-  echo "--- Installing EPS shared dependencies ---"
+if [[ -d "$REPO_ROOT/shared/_shared" ]]; then
+  install_shared "$REPO_ROOT/shared/_shared"
+elif [[ -d "$REPO_ROOT/skills/_shared" ]]; then
+  install_shared "$REPO_ROOT/skills/_shared"
+elif [[ -n "$EPS_REPO" && -d "$EPS_REPO/skills/_shared" ]]; then
   install_shared "$EPS_REPO/skills/_shared"
 fi
 

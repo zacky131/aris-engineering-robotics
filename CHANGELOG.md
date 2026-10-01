@@ -6,6 +6,53 @@ Format: [Semantic Versioning](https://semver.org/)
 
 ---
 
+## [0.3.0] — 2026-10-01
+
+### Added — Anchor-Paper-First Research Intake, End-to-End Workflow & Self-Contained Bundling
+
+**Self-Contained All-in-One Skill Bundling**
+- Bundled all 30 ARIS research/literature skills and 8 EPS engineering paper skills directly into `skills/` and `shared/`
+- Zero external dependencies required at install time: 50 skills + shared references ready immediately upon `git clone`
+- Preserved `tools/sync_upstreams.sh` for optional synchronization with upstream author repositories
+
+**New Skill & Intake System**
+- `skills/anchor-paper-intake/SKILL.md` — parses user anchor PDFs before broad literature search, extracts structured records, builds cross-paper synthesis, and generates gap hypotheses
+- `anchor_papers/` directory structure with support for simple (flat) and categorized layouts (`foundational/`, `closest_work/`, `methodology/`, `benchmark/`, `uncategorized/`)
+- `tools/init_research_project.sh` — non-destructive research project initializer creating directory layouts and starter templates
+
+**Scientific Invariant & Gap Lifecycle**
+- Enforces invariant: Anchor limitations are unverified hypotheses, not confirmed facts or current gaps
+- Gap lifecycle tracking with 6 explicit states: `UNVERIFIED`, `SEARCHING`, `SUPPORTED_AS_CURRENT_GAP`, `PARTIALLY_RESOLVED`, `RESOLVED_BY_PRIOR_WORK`, `INSUFFICIENT_EVIDENCE`
+- Distinction between Author-Claimed Gaps and Currently Verified Gaps
+
+**Schemas & Templates**
+- `schemas/anchor-paper-record.schema.json` — validation schema for structured paper extraction
+- `schemas/anchor-manifest.schema.json` — validation schema for PDF fingerprint tracking
+- `templates/ANCHOR_PAPER_RECORD.yaml` & `templates/ANCHOR_MANIFEST.yaml`
+- Research output templates:
+  * `templates/research/ANCHOR_PAPER_INDEX.md`
+  * `templates/research/ANCHOR_PAPER_SYNTHESIS.md`
+  * `templates/research/ANCHOR_GAP_HYPOTHESES.md`
+  * `templates/research/LITERATURE_SEARCH_PLAN.md`
+  * `templates/research/RESEARCH_GAP_MAP.md`
+- Updated `templates/RESEARCH_CONTRACT.md` with literature anchor and search policies
+
+**Pipeline & Skill Integration**
+- `skills/research-pipeline-robotics/SKILL.md` — updated to 22 stages (Stages 0–21) with Anchor Paper Intake as Stage 0
+- `skills/robotics-research-router/SKILL.md` — automatically detects `anchor_papers/` PDFs and routes to `anchor-paper-intake`
+- `skills/robotics-experiment-plan/SKILL.md` — verifies baseline provenance, community-standard metrics, and gap alignment against anchor synthesis
+
+**Platform & Workflow Integration**
+- `templates/antigravity/AGENTS.md` — added persistent Anchor Papers rule
+- `templates/antigravity/workflows/research-robotics.md` — updated to 9-stage anchor-guided workflow
+- `tools/install_skills.sh` & `tools/validate_installation.py` — registered `anchor-paper-intake` across Codex, Claude, and Antigravity
+
+**Documentation & End-to-End Workflow**
+- `docs/ANCHOR_PAPERS.md` — comprehensive guide on anchor-paper research intake, layouts, gap lifecycles, and copyright rules
+- `README.md` — added "Start Research from Anchor Papers" and complete "End-to-End Sample Prompt Workflow from ARIS to Engineering Paper" spanning Phase 0 through Phase 4
+
+---
+
 ## [0.2.0] — 2026-10-01
 
 ### Added — Google Antigravity support

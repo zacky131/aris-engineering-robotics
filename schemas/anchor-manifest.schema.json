@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Anchor Paper Manifest",
+  "description": "Tracks all anchor PDFs with SHA-256 fingerprints and processing status.",
+  "type": "object",
+  "required": ["papers"],
+  "properties": {
+    "papers": {
+      "type": "object",
+      "patternProperties": {
+        "^AP[0-9]+$": {
+          "type": "object",
+          "required": ["file", "sha256", "processed"],
+          "properties": {
+            "file":      {"type": "string"},
+            "category":  {"type": "string"},
+            "sha256":    {"oneOf": [{"type": "null"}, {"type": "string"}]},
+            "processed": {"type": "boolean"},
+            "removed":   {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

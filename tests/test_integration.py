@@ -15,12 +15,15 @@ def test_repo_structure_exists():
     print("PASS: repo structure exists")
 
 def test_all_skills_have_skill_md():
-    """Every skill directory has a SKILL.md."""
+    """Every skill directory has a SKILL.md (excluding shared reference dirs)."""
     skills_dir = REPO_ROOT / "skills"
+    skill_count = 0
     for skill_dir in skills_dir.iterdir():
-        if skill_dir.is_dir():
+        if skill_dir.is_dir() and skill_dir.name not in ["_shared", "shared-references"]:
             assert (skill_dir / "SKILL.md").exists(), f"SKILL.md missing in {skill_dir.name}"
-    print("PASS: all skills have SKILL.md")
+            skill_count += 1
+    assert skill_count >= 50, f"Expected at least 50 skills, found {skill_count}"
+    print(f"PASS: all {skill_count} skills have SKILL.md")
 
 def test_upstream_aris_detection():
     """ARIS upstream repo is detectable."""

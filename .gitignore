@@ -27,3 +27,14 @@ Thumbs.db
 .env
 *.key
 *.pem
+
+# Anchor papers — intentionally excluded from version control.
+# Anchor PDFs may be copyrighted, licensed for personal use only, unpublished,
+# or otherwise private. Do NOT commit PDFs to public repositories.
+# The anchor_papers/ directory structure (README, .gitkeep) IS tracked.
+anchor_papers/**/*.pdf
+anchor_papers/*.pdf
+
+# Vendor upstream caches (cloned by bootstrap_upstreams.sh)
+# These are re-cloned on demand; no need to track.
+vendor/upstreams/

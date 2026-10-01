@@ -1,0 +1,87 @@
+# $schema: ../schemas/anchor-paper-record.schema.json
+# Template — filled by anchor-paper-intake skill per paper.
+# Use null / "not reported" / "unknown" for absent fields. Never invent values.
+
+paper_id: AP001
+
+source:
+  file: anchor_papers/closest_work/example.pdf
+  category: closest_work   # foundational | closest_work | methodology | benchmark | uncategorized
+  sha256: null             # filled by tool
+
+bibliography:
+  title: null
+  authors: []
+  year: null
+  venue: null
+  doi: null                # do NOT invent DOIs
+  url: null
+
+research_problem:
+  summary: null
+  motivation: null
+
+method:
+  name: null
+  class: null              # e.g., MPC, EKF, PPO, IMM
+  description: null
+  key_components: []
+
+system:
+  domain: null
+  robot_type: null         # uav | ugv | manipulator | mobile | multi | other
+  controller: null
+  estimator: null
+  planner: null
+  middleware: null         # ros2 | ros1 | matlab | python | none
+  simulator: null          # gazebo | pybullet | matlab | none
+  autopilot: null          # px4 | ardupilot | none
+  hardware: null           # physical platform name if real
+
+experimental_design:
+  scenarios: []
+  baselines: []            # what methods were compared?
+  metrics: []
+  repetitions: null
+  datasets: []
+  simulation_or_real: null
+
+evidence:
+  level: unknown           # L0-L6 (see shared/sil-hil-real-evidence.md)
+  main_findings: []
+  quantitative_results: []  # authors' reported values only
+  qualitative_results: []
+
+assumptions: []            # explicit + inferred (mark which)
+
+limitations:
+  explicit_author_limitations: []
+  inferred_limitations:
+    []
+    # - limitation: ...
+    #   basis: ...
+    #   confidence: low
+
+future_work:
+  explicit_author_future_work: []
+
+references_to_follow:
+  backward_candidates: []  # key cited papers to retrieve
+  method_candidates: []    # algorithm/method references
+  benchmark_candidates: [] # evaluation protocols, datasets
+
+relevance:
+  relation_to_current_project: []
+  potentially_reusable_methods: []
+  potentially_reusable_metrics: []
+  potential_conflicts: []
+
+gap_hypotheses: []         # high-level; detailed in ANCHOR_GAP_HYPOTHESES.md
+
+confidence:
+  bibliography: high       # low | medium | high
+  method: high
+  experimental_design: medium
+  gaps: low                # always start low
+
+notes: []

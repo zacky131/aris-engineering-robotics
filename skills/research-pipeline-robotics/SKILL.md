@@ -1,9 +1,9 @@
 ---
 name: research-pipeline-robotics
 description: >
-  Full orchestration pipeline for robotics/control research. Stages 1–21 from
-  research question to submission validation. Includes explicit stopping criteria
-  and hardware safety gates. Does not self-loop indefinitely.
+  Full orchestration pipeline for robotics/control research. Stages 0–21 from
+  anchor paper intake and research question to submission validation. Includes
+  explicit stopping criteria and hardware safety gates. Does not self-loop indefinitely.
 platforms:
   - codex
   - claude
@@ -14,8 +14,8 @@ platforms:
 
 ## Purpose
 
-Orchestrate a complete robotics research workflow from research question to
-submission-ready manuscript.
+Orchestrate a complete robotics research workflow from anchor paper intake and
+research question to submission-ready manuscript.
 
 This skill coordinates other skills and tracks pipeline state. It does **not**
 implement each stage itself — it calls the appropriate skill for each stage.
@@ -38,6 +38,29 @@ The pipeline stops when any of the following conditions is met:
 
 ## Pipeline Stages
 
+### Stage 0 — Anchor Paper Intake
+
+Skill: `anchor-paper-intake`
+- Trigger logic:
+  ```text
+  if anchor_papers/ contains PDFs:
+      run anchor-paper-intake
+      require synthesis before general literature search
+  else:
+      record "no anchor papers supplied"
+      continue normal research workflow
+  ```
+- Output artifacts generated when PDFs are present:
+  - `research/ANCHOR_MANIFEST.yaml`
+  - `research/anchor_records/AP*.yaml`
+  - `research/ANCHOR_PAPER_INDEX.md`
+  - `research/ANCHOR_PAPER_SYNTHESIS.md`
+  - `research/ANCHOR_GAP_HYPOTHESES.md` (all marked `UNVERIFIED`)
+  - `research/LITERATURE_SEARCH_PLAN.md`
+  - `research/RESEARCH_GAP_MAP.md` (initial gap map)
+- **Scientific invariant**: Anchor papers are starting points, not unquestionable authorities.
+  Gaps extracted from anchor papers are unverified hypotheses until confirmed against current literature.
+
 ### Stage 1 — Understand research question
 
 Skills: ARIS `research-lit`, user clarification
@@ -50,17 +73,22 @@ Skill: `robotics-research-router`
 - Detect profile(s)
 - Load appropriate metrics and watchdog checks
 
-### Stage 3 — Literature search
+### Stage 3 — Anchor-guided literature expansion
 
 Skill: ARIS `research-lit`
-- Domain-specific papers
-- Baseline methods
-- Benchmark scenarios
+- Use `research/LITERATURE_SEARCH_PLAN.md` when anchor papers were processed
+- Backward and forward citation searches from anchor seeds
+- Search for recent competitor methods and unresolved limitations
+- Identify community-standard benchmark scenarios and baselines
 
-### Stage 4 — Gap and novelty analysis
+### Stage 4 — Gap and novelty verification
 
 Skill: ARIS `novelty-check`
-- Confirm method is distinct from prior work
+- Verify whether anchor-derived gap hypotheses (`ANCHOR_GAP_HYPOTHESES.md`) remain open in the current literature
+- Update `research/RESEARCH_GAP_MAP.md` states:
+  `UNVERIFIED` → `SUPPORTED_AS_CURRENT_GAP`, `PARTIALLY_RESOLVED`, `RESOLVED_BY_PRIOR_WORK`, or `INSUFFICIENT_EVIDENCE`
+- Confirm method is distinct from both anchor papers and recent literature
+- Never promote a gap without independent literature evidence
 
 ### Stage 5 — Research refinement
 
@@ -181,7 +209,7 @@ pipeline_state:
 ```
 Pipeline complete.
 
-Stages completed: 1–21
+Stages completed: 0–21 (or 1–21 if no anchor papers were provided)
 Claims supported: C001, C002, C003
 Evidence level: L3 (SIL)
 Manuscript status: ready for submission validation
