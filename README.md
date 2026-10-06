@@ -90,38 +90,36 @@ bash tools/sync_upstreams.sh
 All 53 skills are already bundled and ready to install immediately out-of-the-box. If you ever wish to fetch or synchronize future upstream updates from `Auto-claude-code-research-in-sleep` or `engineering-paper-skills`, `tools/sync_upstreams.sh` and `tools/bootstrap_upstreams.sh` can pull them.
 
 
-### Install skills (Codex, user-wide)
+### Project-Local Installation (Recommended)
+
+To install all skills, shared references, agent rules, and workflows directly into your target research project:
 
 ```bash
+# For Google Antigravity
+bash tools/install_skills.sh --platform antigravity --project /path/to/my_robotics_project
+
+# For OpenAI Codex CLI
+bash tools/install_skills.sh --platform codex --project /path/to/my_robotics_project
+
+# For Claude Code
+bash tools/install_skills.sh --platform claude --project /path/to/my_robotics_project
+```
+
+### User-Wide Installation (Global)
+
+```bash
+# For Google Antigravity (global user configuration)
+bash tools/install_skills.sh --platform antigravity
+
+# For OpenAI Codex CLI (~/.codex/skills)
 bash tools/install_skills.sh --platform codex
-```
 
-### Install skills (Codex, project-local)
-
-```bash
-bash tools/install_skills.sh --platform codex --project /path/to/your/project
-```
-
-### Install skills (Claude)
-
-```bash
+# For Claude Code (~/.claude/skills)
 bash tools/install_skills.sh --platform claude
 ```
 
-## Google Antigravity
-
-```bash
-# Project-local install (recommended)
-bash tools/install_skills.sh \
-    --platform antigravity \
-    --project ~/my_robotics_project
-
-# User-wide install
-bash tools/install_skills.sh --platform antigravity
-```
-
-This installs skills to `.agents/skills/`, copies `AGENTS.md`, and sets up
-Antigravity workflow files. See [`docs/ANTIGRAVITY.md`](docs/ANTIGRAVITY.md) for the full guide.
+> [!NOTE]
+> For Google Antigravity, the installer configures `.agents/skills/`, creates/merges `.agents/AGENTS.md` safely, and registers Antigravity workflows in `.agents/workflows/`. See [`docs/ANTIGRAVITY.md`](docs/ANTIGRAVITY.md) for details.
 
 ### Validate installation
 

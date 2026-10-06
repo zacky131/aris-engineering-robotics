@@ -13,21 +13,46 @@
 - Python ≥ 3.9
 - One of: Codex CLI, Claude Code
 
-## Quick install
+## Project-Local Install (Recommended)
 
 ```bash
+# For Google Antigravity
+bash tools/install_skills.sh --platform antigravity --project /path/to/my_robotics_project
+
+# For OpenAI Codex CLI
+bash tools/install_skills.sh --platform codex --project /path/to/my_robotics_project
+
+# For Claude Code
+bash tools/install_skills.sh --platform claude --project /path/to/my_robotics_project
+```
+
+## User-Wide (Global) Install
+
+```bash
+# For Google Antigravity
+bash tools/install_skills.sh --platform antigravity
+
+# For OpenAI Codex CLI
 bash tools/install_skills.sh --platform codex
-python tools/validate_installation.py
+
+# For Claude Code
+bash tools/install_skills.sh --platform claude
+```
+
+Validate installation:
+```bash
+python3 tools/validate_installation.py
 ```
 
 ## Options
 
 | Option | Description |
 |---|---|
-| `--platform codex` | Install to `~/.codex/skills/` |
-| `--platform claude` | Install to `~/.claude/skills/` |
-| `--project /path` | Install to project-local `.codex/skills/` |
-| `--dry-run` | Preview without installing |
+| `--platform antigravity` | Install for Google Antigravity (`.agents/skills/`, `.agents/AGENTS.md`, workflows) |
+| `--platform codex` | Install for OpenAI Codex CLI |
+| `--platform claude` | Install for Anthropic Claude Code |
+| `--project /path` | Install to project-local directory (recommended) |
+| `--dry-run` | Preview actions without copying files |
 
 ## Custom upstream paths
 

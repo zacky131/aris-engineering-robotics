@@ -12,8 +12,14 @@ compared to a PID baseline during maneuver-transition interception scenarios?
 ### Step 1 — Install skills
 
 ```bash
-cd aris-engineering-robotics
-bash tools/install_skills.sh --platform codex
+# For Google Antigravity
+bash tools/install_skills.sh --platform antigravity --project ~/my_project
+
+# For OpenAI Codex CLI
+bash tools/install_skills.sh --platform codex --project ~/my_project
+
+# For Claude Code
+bash tools/install_skills.sh --platform claude --project ~/my_project
 ```
 
 ### Step 2 — Copy templates to your project
