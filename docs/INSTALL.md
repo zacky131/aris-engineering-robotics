@@ -15,6 +15,7 @@
 
 ## Project-Local Install (Recommended)
 
+### Linux / macOS / WSL / Git Bash
 ```bash
 # For Google Antigravity
 bash tools/install_skills.sh --platform antigravity --project /path/to/my_robotics_project
@@ -26,17 +27,50 @@ bash tools/install_skills.sh --platform codex --project /path/to/my_robotics_pro
 bash tools/install_skills.sh --platform claude --project /path/to/my_robotics_project
 ```
 
-## User-Wide (Global) Install
-
-```bash
+### Windows (PowerShell)
+```powershell
 # For Google Antigravity
-bash tools/install_skills.sh --platform antigravity
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform antigravity -Project C:\path\to\my_robotics_project
 
 # For OpenAI Codex CLI
-bash tools/install_skills.sh --platform codex
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform codex -Project C:\path\to\my_robotics_project
 
 # For Claude Code
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform claude -Project C:\path\to\my_robotics_project
+```
+
+### Windows / Cross-Platform (Python — CMD / Terminal / PowerShell)
+```cmd
+# For Google Antigravity
+python tools\install_skills.py --platform antigravity --project C:\path\to\my_robotics_project
+
+# For OpenAI Codex CLI
+python tools\install_skills.py --platform codex --project C:\path\to\my_robotics_project
+
+# For Claude Code
+python tools\install_skills.py --platform claude --project C:\path\to\my_robotics_project
+```
+
+## User-Wide (Global) Install
+
+**Linux / macOS:**
+```bash
+bash tools/install_skills.sh --platform antigravity
+bash tools/install_skills.sh --platform codex
 bash tools/install_skills.sh --platform claude
+```
+
+**Windows (PowerShell / Python):**
+```powershell
+# PowerShell
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform antigravity
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform codex
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform claude
+
+# Python
+python tools\install_skills.py --platform antigravity
+python tools\install_skills.py --platform codex
+python tools\install_skills.py --platform claude
 ```
 
 Validate installation:

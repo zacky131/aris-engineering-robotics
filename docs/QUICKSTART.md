@@ -11,6 +11,7 @@ compared to a PID baseline during maneuver-transition interception scenarios?
 
 ### Step 1 — Install skills
 
+**Linux / macOS / WSL:**
 ```bash
 # For Google Antigravity
 bash tools/install_skills.sh --platform antigravity --project ~/my_project
@@ -20,6 +21,15 @@ bash tools/install_skills.sh --platform codex --project ~/my_project
 
 # For Claude Code
 bash tools/install_skills.sh --platform claude --project ~/my_project
+```
+
+**Windows (PowerShell / Python):**
+```powershell
+# PowerShell
+powershell -ExecutionPolicy Bypass -File tools\install_skills.ps1 -Platform antigravity -Project C:\path\to\my_project
+
+# Python (works on CMD, PowerShell, or Git Bash)
+python tools\install_skills.py --platform antigravity --project C:\path\to\my_project
 ```
 
 ### Step 2 — Copy templates to your project
