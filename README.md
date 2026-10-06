@@ -35,12 +35,12 @@ ARIS Research Layer
   research-implement-feature · paper-claim-audit · research-review · rebuttal
         │
         ▼
-Robotics / Control Layer  (NEW — this repository)
-  robotics-research-router · robotics-experiment-plan
-  run-robotics-experiment · robotics-watchdog
-  robotics-result-analysis · controller-tuning
-  robotics-experiment-audit · simulation-validation · sil-hil-validation
-  robotics-result-to-claim · research-pipeline-robotics
+Robotics / Advanced Control Layer  (NEW — this repository)
+  anchor-paper-intake · robotics-research-router · robotics-experiment-plan
+  run-robotics-experiment · robotics-watchdog · controller-tuning
+  vla-robotics · learning-control-eval · safety-filter-cbf
+  robotics-result-analysis · robotics-experiment-audit · simulation-validation
+  sil-hil-validation · robotics-result-to-claim · research-pipeline-robotics
         │
         ▼
 Engineering Paper Layer
@@ -48,19 +48,20 @@ Engineering Paper Layer
   engineering-figure-table · engineering-response · engineering-validation
 ```
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for Mermaid diagrams.
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/VLA_AND_AI_CONTROL.md`](docs/VLA_AND_AI_CONTROL.md) for detailed architecture and paradigm standards.
 
 ---
 
-## Supported Research Domains
+## Supported Research Domains & Control Paradigms
 
-- Classical control: PID, LQR, MPC, NMPC, SMC, adaptive control
-- State estimation: Kalman filter, EKF, UKF, IMM
-- ROS 2 robotics: Nav2, SLAM, sensor fusion
-- PX4 / UAV: SITL, offboard, MAVLink, uXRCE-DDS
-- Multi-robot / MARL: MAPPO, IPPO, cooperative control
-- Hybrid AI-control: learned + classical architectures
-- Trajectory planning, guidance, coverage
+- **Vision-Language-Action (VLA) & Embodied AI**: OpenVLA, Octo, RT-1, RT-2, π0, SmolVLA, ACT, Diffusion Policy, action chunking, temporal ensembling, SIMPLER Env, LIBERO, CALVIN, ManiSkill, workspace safety cages
+- **Learning-Based Control**: Deep RL (PPO, SAC, TD3), offline RL (CQL, IQL), imitation learning, Sim-to-Real transfer, domain randomization, Rapid Motor Adaptation (RMA), multi-seed evaluation (IQM, 95% bootstrap CIs via rliable)
+- **AI-Based & Physics-Informed Control**: Physics-informed neural networks (PINN), Neural ODEs, Neural MPC, Gaussian Process MPC (GP-MPC), Deep Koopman operators, residual RL
+- **SOTA Safety Control & Formal Guarantees**: Control Barrier Functions (CBF), CLF-CBF, Quadratic Program (QP) safety shields, forward invariance verification, solver fallback gates
+- **Classical Control**: PID, LQR, MPC, NMPC, SMC (sliding mode), adaptive control, H-infinity robust control
+- **State Estimation**: Kalman filter (KF), EKF, UKF, IMM, particle filter, Moving Horizon Estimation (MHE)
+- **Robotics Middleware & Autopilots**: ROS 2 (Nav2, SLAM, TF), PX4 UAV (SITL, offboard, MAVLink, uXRCE-DDS)
+- **Multi-Robot Systems**: MARL (MAPPO, IPPO), swarm coordination, multi-UAV trajectory deconfliction
 
 ---
 
@@ -78,7 +79,7 @@ See [`docs/PLATFORM_COMPATIBILITY.md`](docs/PLATFORM_COMPATIBILITY.md) for a ful
 - Bash ≥ 4
 - Python ≥ 3.9 (for validation scripts)
 - One of: Codex CLI, Claude Code, Google Antigravity
-- **100% Self-Contained**: All 50 research, robotics, and paper-writing skills are pre-bundled directly in `skills/` and `shared/` with zero external dependencies required!
+- **100% Self-Contained**: All 53 research, robotics, and paper-writing skills are pre-bundled directly in `skills/` and `shared/` with zero external dependencies required!
 
 ### Optional — Sync with upstream repositories
 
@@ -86,7 +87,7 @@ See [`docs/PLATFORM_COMPATIBILITY.md`](docs/PLATFORM_COMPATIBILITY.md) for a ful
 bash tools/sync_upstreams.sh
 ```
 
-All 50 skills are already bundled and ready to install immediately out-of-the-box. If you ever wish to fetch or synchronize future upstream updates from `Auto-claude-code-research-in-sleep` or `engineering-paper-skills`, `tools/sync_upstreams.sh` and `tools/bootstrap_upstreams.sh` can pull them.
+All 53 skills are already bundled and ready to install immediately out-of-the-box. If you ever wish to fetch or synchronize future upstream updates from `Auto-claude-code-research-in-sleep` or `engineering-paper-skills`, `tools/sync_upstreams.sh` and `tools/bootstrap_upstreams.sh` can pull them.
 
 
 ### Install skills (Codex, user-wide)
@@ -359,6 +360,18 @@ Use the robotics-research-router skill to classify my research context.
 
 ```
 Use the robotics-experiment-plan skill to design an MPC robustness experiment.
+```
+
+```
+Use the vla-robotics skill to evaluate OpenVLA on the LIBERO benchmark with action chunking and a safety bounding box.
+```
+
+```
+Use the learning-control-eval skill to analyze PPO quadruped sim-to-real transfer across 10 random seeds using IQM and 95% bootstrap CIs.
+```
+
+```
+Use the safety-filter-cbf skill to formulate a CBF-QP safety shield guaranteeing forward invariance.
 ```
 
 ```

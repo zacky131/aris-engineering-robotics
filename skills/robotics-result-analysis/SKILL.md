@@ -54,10 +54,32 @@ Produce a structured summary ready for `robotics-experiment-audit` and
 | Metric | Definition |
 |---|---|
 | `position_rmse_est` | RMSE of state estimate vs ground truth |
-| `velocity_rmse_est` | |
-| `orientation_error_deg` | |
+| `velocity_rmse_est` | Velocity estimate error vs ground truth |
+| `orientation_error_deg` | Geodesic attitude error in degrees |
 | `normalized_innovation_squared` | NIS (χ² consistency test) |
 | `normalized_estimation_error_squared` | NEES (χ² consistency) |
+
+### Vision-Language-Action (VLA) & Embodied AI
+
+| Metric | Definition |
+|---|---|
+| `task_success_rate` | Fraction of episodes achieving specified language goal |
+| `subtask_completion_rate` | Fraction of sub-goals reached (e.g. grasp, lift, place) |
+| `action_chunk_smoothness` | Mean trajectory jerk across consecutive chunk boundaries |
+| `vla_inference_time_ms` | Mean, p95, and max inference latency of VLA model |
+| `ood_generalization_drop` | Relative performance drop on unseen visual/spatial/prompt setups |
+| `workspace_boundary_interventions` | Count of times commanded EEF exceeded virtual cage |
+
+### Learning-Based & SOTA Safety Control
+
+| Metric | Definition |
+|---|---|
+| `iqm_score` | Interquartile Mean across evaluation seeds (rliable standard) |
+| `ci_95_bounds` | 95% stratified bootstrap confidence interval [low, high] |
+| `sim_to_real_drop_pct` | Relative degradation from simulation to physical robot |
+| `cbf_minimum_margin` | Minimum value of barrier function h(x) across trajectory |
+| `safety_filter_intervention_pct` | Percentage of steps where QP modified nominal control action |
+| `qp_solve_time_ms` | Real-time safety filter QP solution time |
 
 ### Planning
 

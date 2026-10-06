@@ -1,0 +1,47 @@
+profile: vla_robotics
+name: Vision-Language-Action & Embodied AI Robotics
+description: >
+  Vision-Language-Action (VLA) models, multimodal embodied foundation policies,
+  and end-to-end vision-to-action robotic manipulation and navigation.
+typical_models:
+  - OpenVLA
+  - Octo
+  - RT-1
+  - RT-2
+  - pi0 (Physical Intelligence)
+  - SmolVLA
+  - ACT (Action Chunking with Transformers)
+  - Diffusion Policy
+observation_spaces:
+  - multi_view_rgb (wrist_camera, static_over_the_shoulder)
+  - proprioception (joint_positions, eef_pose, gripper_width)
+  - language_instruction (task goal, object descriptor, spatial target)
+action_spaces:
+  - eef_cartesian_delta (dx, dy, dz, droll, dpitch, dyaw, gripper_state)
+  - joint_position_delta
+  - action_chunking (horizon H: 8-64 steps)
+benchmark_environments:
+  - simpler_env (WidowX, Google Robot digital twins)
+  - libero (libero_spatial, libero_object, libero_goal, libero_100)
+  - calvin (multi-task language-conditioned manipulation)
+  - maniskill (articulated object manipulation)
+  - robosuite (OSC position/impedance control)
+  - isaac_lab (GPU-parallelized visual manipulation)
+mandatory_metrics:
+  - task_success_rate
+  - subtask_completion_rate
+  - average_episode_duration_s
+  - action_smoothness_jerk
+  - inference_latency_ms
+  - out_of_distribution_generalization (unseen objects / distractors / lighting / spatial layouts)
+execution_architecture:
+  high_level_policy_rate_hz: 5-10
+  low_level_controller_rate_hz: 100-500
+  temporal_ensembling: true
+safety_guards:
+  - workspace_cartesian_bounding_box
+  - maximum_delta_per_step_clamp
+  - ood_visual_confidence_threshold
+  - emergency_stop_gate
+gpu_required: true
+venues: [CoRL, RSS, ICRA, IROS, CVPR, ECCV, NeurIPS]

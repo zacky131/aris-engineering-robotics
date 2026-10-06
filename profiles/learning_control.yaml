@@ -1,0 +1,35 @@
+profile: learning_control
+name: Learning-Based Control & Deep Reinforcement Learning
+description: >
+  Model-free and model-based deep reinforcement learning, imitation learning,
+  offline RL, and sim-to-real domain randomization for robotic platforms.
+typical_algorithms:
+  - PPO (Proximal Policy Optimization)
+  - SAC (Soft Actor-Critic)
+  - TD3 (Twin Delayed DDPG)
+  - REDQ (Randomized Ensemble Double Q-Learning)
+  - DreamerV3 (Model-Based RL with World Models)
+  - IQL / CQL (Offline Reinforcement Learning)
+  - DAgger / Behavioral Cloning
+sim_to_real_methods:
+  - domain_randomization (friction, mass, inertia, actuator delay, damping)
+  - RMA (Rapid Motor Adaptation / privileged teacher-student distillation)
+  - system_identification_networks
+  - adversarial_disturbance_training
+mandatory_metrics:
+  - success_rate
+  - cumulative_episodic_reward
+  - sample_efficiency_timesteps
+  - interquartile_mean_iqm (rliable standard)
+  - performance_profile_curves
+  - sim_to_real_transfer_drop_pct
+  - constraint_violation_rate
+training_checks:
+  minimum_eval_seeds: 10
+  training_curve_stability: true
+  ablation_components: [reward_shaping, observation_noise, domain_randomization]
+venues: [CoRL, RSS, ICRA, IROS, RA-L, NeurIPS, ICLR]
+gpu_required: true
+note: >
+  Report aggregate metrics across minimum 10 seeds using interquartile mean (IQM)
+  and bootstrap confidence intervals to avoid single-seed cherry-picking.

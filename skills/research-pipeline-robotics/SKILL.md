@@ -110,25 +110,34 @@ Skill: `robotics-experiment-plan`
 ### Stage 8 — Implement missing functionality
 
 Skill: ARIS `research-implement-feature`
-- Implement controller, estimator, or integration gaps
-- Confirm ROS 2 / Gazebo / PX4 integration
+- Implement controller, estimator, neural architecture, or VLA integration
+- Confirm simulator / gym environment (Gazebo, PX4 SITL, SIMPLER, LIBERO, ManiSkill, Isaac)
+- Verify real-time export (ONNX, TensorRT, CasADi) if AI control is deployed
 
 ### Stage 9 — Run experiments
 
-Skill: `run-robotics-experiment`
-- Execute MUST_RUN experiments
-- Respect HARDWARE_GATE
+Skills: `run-robotics-experiment`, `vla-robotics`, `learning-control-eval`
+- Execute MUST_RUN experiments across active profiles:
+  * Classical / UAV: `run-robotics-experiment` (Gazebo / SITL)
+  * VLA / Embodied AI: `vla-robotics` (SIMPLER, LIBERO, real arm)
+  * Learning-Based / DRL: `run-robotics-experiment` with multi-seed logging
+  * SOTA Safety Shielding: wrap with `safety-filter-cbf`
+- Respect HARDWARE_GATE for real/HIL platforms
 
 ### Stage 10 — Monitor experiment health
 
 Skill: `robotics-watchdog`
-- Detect failures early
+- Detect failures early (process crashes, divergence, latency timeouts, OOD errors, QP infeasibility)
 - Log all anomalies
 
 ### Stage 11 — Analyse results
 
-Skill: `robotics-result-analysis`
-- Compute domain metrics
+Skills: `robotics-result-analysis`, `learning-control-eval`
+- Compute domain metrics:
+  * Classical: RMSE, rise time, overshoot, solver time
+  * Learning: IQM, 95% bootstrap CIs, sample efficiency, sim-to-real gap
+  * VLA: Task success rate, subtask progression, chunk jerk, OOD generalization drop
+  * Safety: Zero constraint violations, CBF min margin, QP solve latency
 - Produce RESULT_SUMMARY.yaml
 
 ### Stage 12 — Audit experiment integrity

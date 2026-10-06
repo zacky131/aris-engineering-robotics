@@ -24,6 +24,7 @@ UNINSTALLER = REPO_ROOT / "tools" / "uninstall_skills.sh"
 VALIDATOR = REPO_ROOT / "tools" / "validate_installation.py"
 
 REQUIRED_ROBOTICS_SKILLS = [
+    "anchor-paper-intake",
     "robotics-research-router",
     "robotics-experiment-plan",
     "run-robotics-experiment",
@@ -34,6 +35,9 @@ REQUIRED_ROBOTICS_SKILLS = [
     "simulation-validation",
     "sil-hil-validation",
     "robotics-result-to-claim",
+    "vla-robotics",
+    "learning-control-eval",
+    "safety-filter-cbf",
     "research-pipeline-robotics",
 ]
 
@@ -42,6 +46,8 @@ EXPECTED_WORKFLOWS = [
     "experiment-robotics.md",
     "analyze-robotics.md",
     "write-engineering-paper.md",
+    "vla-robotics.md",
+    "learning-control.md",
 ]
 
 MANAGED_BEGIN = "<!-- BEGIN ARIS-ENGINEERING-ROBOTICS -->"

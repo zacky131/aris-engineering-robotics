@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "aris-engineering-robotics/vla-evaluation.schema.json",
+  "title": "Vision-Language-Action Evaluation Configuration",
+  "description": "Schema for VLA_EVALUATION.yaml — Vision-Language-Action experiment and benchmark configuration.",
+  "type": "object",
+  "required": ["vla_model", "benchmark", "evaluation_matrix", "action_chunking", "safety"],
+  "properties": {
+    "vla_model": {
+      "type": "object",
+      "required": ["name", "checkpoint"],
+      "properties": {
+        "name":             {"type": "string"},
+        "checkpoint":       {"type": "string"},
+        "vision_backbone":  {"type": "string"},
+        "language_backbone":{"type": "string"},
+        "precision":        {"type": "string", "enum": ["fp32", "fp16", "bf16", "int8", "int4"]}
+      }
+    },
+    "benchmark": {
+      "type": "object",
+      "required": ["environment", "task_suite"],
+      "properties": {
+        "environment": {"type": "string", "enum": ["simpler_env", "libero", "calvin", "maniskill", "robosuite", "isaac_lab", "physical_robot"]},
+        "task_suite":  {"type": "string"},
+        "robot_platform": {"type": "string", "enum": ["widowx", "google_robot", "franka_panda", "ur5", "aloha", "mobile_aloha", "custom"]}
+      }
+    },
+    "action_chunking": {
+      "type": "object",
+      "required": ["chunk_size", "action_frame"],
+      "properties": {
+        "chunk_size":          {"type": "integer", "minimum": 1, "maximum": 128},
+        "action_frame":        {"type": "string", "enum": ["tool_frame_cartesian_delta", "base_frame_cartesian_delta", "joint_position_delta"]},
+        "temporal_ensembling": {"type": "boolean"},
+        "policy_frequency_hz": {"type": "number", "minimum": 1},
+        "control_frequency_hz":{"type": "number", "minimum": 10}
+      }
+    },
+    "evaluation_matrix": {
+      "type": "object",
+      "required": ["trials_per_task"],
+      "properties": {
+        "trials_per_task":     {"type": "integer", "minimum": 1},
+        "test_in_distribution": {"type": "boolean"},
+        "test_visual_ood":      {"type": "boolean"},
+        "test_spatial_ood":     {"type": "boolean"},
+        "test_language_ood":    {"type": "boolean"}
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["workspace_bounding_box"],
+      "properties": {
+        "workspace_bounding_box": {
+          "type": "object",
+          "required": ["x", "y", "z"],
+          "properties": {
+            "x": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+            "y": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+            "z": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}
+          }
+        },
+        "max_delta_pos_m": {"type": "number", "minimum": 0},
+        "max_delta_rot_deg": {"type": "number", "minimum": 0},
+        "cbf_shield_enabled": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -23,13 +23,17 @@ and control research tasks.
 | Profile | Key indicators |
 |---|---|
 | `classical_control` | PID, LQR, MPC, NMPC, SMC, adaptive, robust, observer, EKF, UKF, IMM |
+| `learning_control` | DRL, PPO, SAC, TD3, REDQ, offline RL, sim-to-real, domain randomization, RMA |
+| `ai_control` | Neural ODE, PINN, physics-informed, learned dynamics, Neural MPC, GP-MPC, residual RL, residual control |
+| `safe_sota_control` | Control Barrier Functions, CBF, CLF-CBF, safety filter, QP shield, forward invariance, safety certificate |
+| `vla_robotics` | VLA, Vision-Language-Action, OpenVLA, Octo, RT-1, RT-2, pi0, SmolVLA, ACT, action chunking, LIBERO, SIMPLER, ManiSkill, CALVIN |
 | `ros2_robotics` | ROS 2, Gazebo, Nav2, SLAM, rosbag, TF, sensor fusion |
 | `px4_uav` | PX4, SITL, MAVLink, uXRCE-DDS, offboard control, UAV, guidance |
 | `multi_robot` | MARL, swarm, coordination, task allocation, multi-UAV |
-| `learning_robotics` | PPO, SAC, TD3, MAPPO, IPPO, imitation, learned policy |
-| `hybrid_ai_control` | learned + classical mixed architecture |
+| `learning_robotics` | General learning-based robotics (alias/superset of learning_control) |
+| `hybrid_ai_control` | Mixed learned + classical architecture (alias/superset of ai_control) |
 
-Multiple profiles may be active simultaneously (e.g., `px4_uav + classical_control`).
+Multiple profiles may be active simultaneously (e.g., `vla_robotics + safe_sota_control` or `px4_uav + classical_control`).
 
 ## Instructions
 
@@ -39,19 +43,22 @@ Read the following if present:
 - `anchor_papers/` — check whether this directory exists and contains PDFs (either at root or in `foundational/`, `closest_work/`, `methodology/`, `benchmark/`, `uncategorized/`).
   Check if `research/ANCHOR_MANIFEST.yaml` exists and whether all anchor PDFs are already processed and unchanged.
 - `RESEARCH_CONTRACT.md` or equivalent problem statement
-- Any `EXPERIMENT.yaml` or experiment configuration files
+- Any `EXPERIMENT.yaml`, `VLA_EVALUATION.yaml`, or `LEARNING_EXPERIMENT.yaml` configuration files
 - Any existing code (`*.py`, `*.cpp`, `*.launch.py`, `*.yaml`)
 - Paper draft if available
 
 ### Step 2 — Extract keywords and architecture
 
 Look for:
-- Controller type (PID, MPC, RL policy, etc.)
+- VLA / Embodied AI (OpenVLA, Octo, RT-1/2, pi0, SmolVLA, ACT, Diffusion Policy, LIBERO, SIMPLER, ManiSkill)
+- Learning algorithm (PPO, SAC, TD3, Dreamer, DAgger, RMA, domain randomization)
+- AI / Physics-Informed model (Neural ODE, PINN, Neural MPC, GP-MPC, residual network)
+- Safety certification (CBF, Control Barrier Function, safety filter, QP shield)
+- Classical controller (PID, MPC, LQR, SMC, etc.)
 - Middleware (ROS 2, MATLAB, Simulink, Python, etc.)
-- Simulator (Gazebo, Isaac, PyBullet, MATLAB, etc.)
+- Simulator (SIMPLER, LIBERO, ManiSkill, Isaac Lab/Orbit, Gazebo, MuJoCo, PyBullet)
 - Autopilot (PX4, ArduPilot, etc.)
-- Robot type (UAV, UGV, manipulator, mobile, multi-robot)
-- Learning method if any
+- Robot type (manipulator, UAV, UGV, humanoid, mobile, multi-robot)
 
 ### Step 3 — Classify profile(s)
 
@@ -71,17 +78,19 @@ State your confidence:
 - If no anchor papers exist, proceed directly with standard research flow.
 
 **Downstream Skills:**
-Based on profile and context, recommend the next skills in order:
+Based on profile and context, recommend specialized skills:
 
-1. `anchor-paper-intake` (if anchor papers present and unindexed)
-2. `robotics-experiment-plan` — design the experiment
-3. `run-robotics-experiment` — execute it
-4. `robotics-watchdog` — monitor health
-5. `robotics-result-analysis` — analyse results
-6. `robotics-experiment-audit` — audit integrity
-7. `robotics-result-to-claim` — generate claims
-8. `engineering-paper-auditor` — audit manuscript
-9. `engineering-writing` — draft/revise
+1. `anchor-paper-intake` (if unindexed anchor papers exist)
+2. **Experiment Planning**:
+   - For all profiles: `robotics-experiment-plan`
+3. **Execution & Specialized Evaluation**:
+   - For VLA / Embodied AI: `vla-robotics` → `safety-filter-cbf` → `run-robotics-experiment`
+   - For Learning-Based Control: `run-robotics-experiment` → `learning-control-eval` → `safety-filter-cbf`
+   - For AI / Residual / Classical Control: `run-robotics-experiment` → `controller-tuning` → `simulation-validation`
+4. **Monitoring**: `robotics-watchdog` (monitors RTF, VLA inference latency, QP feasibility, state divergence)
+5. **Analysis**: `robotics-result-analysis` (computes RMSE, success rate, IQM, jerk, latency)
+6. **Audit & Integrity**: `robotics-experiment-audit` (verifies seeds, OOD splits, baseline fairness)
+7. **Claims & Writing**: `robotics-result-to-claim` → `engineering-paper-auditor` → `engineering-writing`
 
 For paper-only tasks:
 - Route directly to `engineering-paper-router`
@@ -101,29 +110,33 @@ anchor_papers:
   required_next_skill: anchor-paper-intake   # omitted or null if already processed
 
 detected_profiles:
-  - classical_control     # HIGH
-  - px4_uav               # HIGH
+  - vla_robotics          # HIGH
+  - safe_sota_control     # HIGH
 
 recommended_skills_in_order:
-  1. anchor-paper-intake   # if unindexed anchor papers exist
+  1. anchor-paper-intake  # if unindexed anchor papers exist
   2. robotics-experiment-plan
-  3. run-robotics-experiment
-  4. robotics-watchdog
-  5. robotics-result-analysis
-  6. robotics-experiment-audit
-  7. robotics-result-to-claim
-  8. engineering-paper-auditor
-  9. engineering-writing
+  3. vla-robotics
+  4. safety-filter-cbf
+  5. run-robotics-experiment
+  6. robotics-watchdog
+  7. robotics-result-analysis
+  8. robotics-experiment-audit
+  9. robotics-result-to-claim
+  10. engineering-paper-auditor
+  11. engineering-writing
 
 profile_notes: >
-  MPC controller targeting UAV interception. PX4 SITL + Gazebo stack
-  detected. Recommend px4_uav profile for metric set and watchdog checks.
+  Vision-Language-Action manipulation task targeting LIBERO benchmark with
+  real-time CBF safety shield. Recommended vla_robotics + safe_sota_control.
 
 active_shared_rules:
+  - shared/vla-standards.md
+  - shared/safety-cbf-standards.md
+  - shared/learning-control-standards.md
+  - shared/ai-control-realtime.md
   - shared/evidence-boundary.md
   - shared/claim-strength.md
-  - shared/control-metrics.md
-  - shared/timing-and-realtime.md
 ```
 
 ## Constraints

@@ -19,16 +19,16 @@ Every plan must address the core research questions and map experiments to claim
 
 ## Core Research Questions
 
-Not all six questions apply to every project. Explicitly classify which apply.
+Not all six questions apply to every project. Explicitly classify which apply:
 
-| ID | Question | Domain focus |
-|---|---|---|
-| Q1 | PERFORMANCE — Does the method improve the primary task metric? | All |
-| Q2 | MECHANISM — Under which condition is the improvement concentrated? | All |
-| Q3 | COMPONENT — Which component supports which contribution? | All |
-| Q4 | ROBUSTNESS — How does performance change under disturbances/uncertainty? | Control, estimation |
-| Q5 | COMPUTATION — Can the approach satisfy real-time constraints? | Control, embedded |
-| Q6 | FAILURE ENVELOPE — Where does the method cease to work reliably? | Safety-critical |
+| ID | Question | Classical / UAV focus | Learning / AI Control focus | VLA / Embodied AI focus |
+|---|---|---|---|---|
+| Q1 | PERFORMANCE | Tracking error, rise time, overshoot | Sample efficiency, reward, IQM | Task success rate, subtask completion |
+| Q2 | MECHANISM | Operating condition concentration | State visitation, value convergence | Visual / language / spatial OOD generalization |
+| Q3 | COMPONENT | Observer, cost terms, constraint tuning | Loss terms, domain randomization, teacher-student | Vision backbone, chunk horizon $H$, safety shield |
+| Q4 | ROBUSTNESS | Wind, measurement noise, delay | Parametric mismatch, sim-to-real gap | Visual distractors, lighting, camera shift |
+| Q5 | COMPUTATION | Solver time (acados/CasADi), RTF | Neural inference latency, memory | VLA tokenization, model FPS, QP solve time |
+| Q6 | FAILURE ENVELOPE | Stability boundary, actuator saturation | Distribution shift, reward exploitation | Workspace violation, collision rate, hallucination |
 
 ## Instructions
 

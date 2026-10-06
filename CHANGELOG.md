@@ -4,6 +4,41 @@ All notable changes to ARIS Engineering Robotics are documented here.
 
 Format: [Semantic Versioning](https://semver.org/)
 
+## [0.4.0] — 2026-10-06
+
+### Added — Vision-Language-Action (VLA), Learning-Based Control, AI Control & SOTA Safety Filters
+
+**Vision-Language-Action (VLA) in Robotics**
+- `profiles/vla_robotics.yaml` — profile covering OpenVLA, Octo, RT-1/2, π0, SmolVLA, ACT, and Diffusion Policy.
+- `skills/vla-robotics/SKILL.md` — end-to-end VLA workflow managing visual/proprioceptive inputs, high-level (5–10 Hz) vs low-level (100–500 Hz) frequency decoupling, action chunking, temporal ensembling, and workspace bounding-box safety cages.
+- `shared/vla-standards.md` & `skills/_shared/vla-standards.md` — benchmark evaluation rules (SIMPLER Env, LIBERO, CALVIN, ManiSkill), camera frame validation, action frame normalization, and latency budgets.
+- `schemas/vla-evaluation.schema.json` & `templates/VLA_EVALUATION.yaml` — formal validation schema and configuration template for VLA evaluations.
+- `templates/antigravity/workflows/vla-robotics.md` — dedicated Antigravity workflow for end-to-end VLA benchmarking and deployment.
+
+**Learning-Based Control & Sim-to-Real**
+- `profiles/learning_control.yaml` — profile for model-free/model-based/offline DRL (PPO, SAC, TD3, CQL, IQL) and sim-to-real transfer.
+- `skills/learning-control-eval/SKILL.md` — multi-seed statistical evaluation implementing Agarwal et al. (2021) / `rliable` standards: Interquartile Mean (IQM), 95% bootstrap confidence intervals (2,000 resamples), performance profiles, and domain randomization auditing.
+- `shared/learning-control-standards.md` & `skills/_shared/learning-control-standards.md` — statistical reporting protocols and RMA teacher-student distillation verification.
+- `schemas/learning-control.schema.json` & `templates/LEARNING_EXPERIMENT.yaml` — schema and template for reinforcement learning experiments.
+- `templates/antigravity/workflows/learning-control.md` — dedicated Antigravity workflow for learning-based control experiments.
+
+**AI-Based & Physics-Informed Control**
+- `profiles/ai_control.yaml` — profile for Neural ODEs, Physics-Informed Neural Networks (PINNs), Neural MPC, GP-MPC, and Residual RL.
+- `shared/ai-control-realtime.md` & `skills/_shared/ai-control-realtime.md` — real-time latency budgets ($P99 < T_s$), GPU jitter isolation, and deterministic fallback controllers.
+
+**SOTA Safety Filters & Control Barrier Functions (CBF)**
+- `profiles/safe_sota_control.yaml` — profile for formal safety shields, CBF, CLF-CBF, and QP filtering.
+- `skills/safety-filter-cbf/SKILL.md` — synthesizes Control Barrier Function QP shields between high-level policies (VLA/DRL) and low-level actuators, enforcing forward invariance and slack relaxation.
+- `shared/safety-cbf-standards.md` & `skills/_shared/safety-cbf-standards.md` — mathematical invariants, QP solver configuration (OSQP, qpOASES, Clarabel), and infeasibility fallback protocols.
+
+**Core Pipeline & Watchdog Upgrades**
+- `skills/robotics-research-router/SKILL.md` — added keyword detection and routing for `vla_robotics`, `learning_control`, `ai_control`, and `safe_sota_control`.
+- `skills/robotics-watchdog/SKILL.md` — added VLA inference latency monitoring, camera feed freeze watchdog, action chunk delta spike detection, and CBF QP solver feasibility tracking.
+- `skills/robotics-result-analysis/SKILL.md` — added VLA and Learning metrics (IQM, bootstrap CI, subtask progression, action jerk, inference latency).
+- `skills/robotics-experiment-audit/SKILL.md` — added OOD split audits, prompt disjointness audits, and multi-seed fairness audits.
+- `skills/research-pipeline-robotics/SKILL.md` — expanded execution and evaluation stages for VLA and learning pipelines.
+- `docs/VLA_AND_AI_CONTROL.md` — dedicated comprehensive technical guide.
+
 ---
 
 ## [0.3.0] — 2026-10-01

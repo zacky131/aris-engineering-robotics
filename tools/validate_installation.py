@@ -25,6 +25,9 @@ ROBOTICS_SKILLS = [
     "simulation-validation",
     "sil-hil-validation",
     "robotics-result-to-claim",
+    "vla-robotics",
+    "learning-control-eval",
+    "safety-filter-cbf",
     "research-pipeline-robotics",
 ]
 

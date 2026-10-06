@@ -12,7 +12,7 @@
       "properties": {
         "id":       {"type": "string", "pattern": "^EXP[0-9]+$"},
         "name":     {"type": "string"},
-        "domain":   {"type": "string", "enum": ["robotics", "control", "estimation", "planning", "navigation"]},
+        "domain":   {"type": "string", "enum": ["robotics", "control", "estimation", "planning", "navigation", "learning_control", "ai_control", "vla_manipulation", "vla_navigation"]},
         "category": {"type": "string", "enum": ["performance", "robustness", "component", "computation", "failure_envelope", "mechanism"]},
         "priority": {"type": "string", "enum": ["MUST_RUN", "SHOULD_RUN", "NICE_TO_HAVE"]},
         "claims":   {"type": "array", "items": {"type": "string", "pattern": "^C[0-9]+"}}
@@ -24,7 +24,7 @@
       "properties": {
         "type":       {"type": "string", "enum": ["numerical_simulation", "simulation", "sil", "hil", "real"]},
         "middleware": {"type": "string", "enum": ["ros2", "ros1", "matlab", "simulink", "python", "none"]},
-        "simulator":  {"type": "string", "enum": ["gazebo", "gazebo_classic", "isaac", "pybullet", "matlab", "none"]},
+        "simulator":  {"type": "string", "enum": ["gazebo", "gazebo_classic", "isaac", "isaac_gym", "isaac_orbit", "isaac_lab", "pybullet", "mujoco", "simpler_env", "libero", "calvin", "maniskill", "robosuite", "matlab", "none"]},
         "autopilot":  {"type": "string", "enum": ["px4", "ardupilot", "betaflight", "none"]},
         "hardware":   {"type": "string"}
       }

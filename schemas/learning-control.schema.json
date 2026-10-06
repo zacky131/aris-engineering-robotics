@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "aris-engineering-robotics/learning-control.schema.json",
+  "title": "Learning-Based Control Configuration",
+  "description": "Schema for LEARNING_EXPERIMENT.yaml — Deep Reinforcement Learning & Imitation Learning evaluation.",
+  "type": "object",
+  "required": ["experiment", "algorithm", "environment", "seeds", "metrics"],
+  "properties": {
+    "experiment": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id":   {"type": "string", "pattern": "^EXP[0-9]+$"},
+        "name": {"type": "string"}
+      }
+    },
+    "algorithm": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name":           {"type": "string"},
+        "type":           {"type": "string", "enum": ["model_free_rl", "model_based_rl", "offline_rl", "imitation_learning", "residual_rl"]},
+        "hyperparameters":{"type": "object"}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": ["name", "simulator"],
+      "properties": {
+        "name":      {"type": "string"},
+        "simulator": {"type": "string", "enum": ["isaac_lab", "isaac_gym", "mujoco", "pybullet", "gazebo", "real_robot"]},
+        "state_dim": {"type": "integer"},
+        "action_dim":{"type": "integer"}
+      }
+    },
+    "seeds": {
+      "type": "object",
+      "required": ["evaluation_seeds"],
+      "properties": {
+        "evaluation_seeds": {
+          "type": "array",
+          "items": {"type": "integer"},
+          "minItems": 5
+        }
+      }
+    },
+    "domain_randomization": {
+      "type": "object",
+      "properties": {
+        "enabled":    {"type": "boolean"},
+        "parameters": {"type": "object"}
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string"}
+    }
+  }
+}

@@ -29,13 +29,15 @@ robotics-specific checks.
 | `TIMING_FAILURE` | Deadline misses, RTF below threshold, sim clock stalled |
 | `SCENARIO_FAILURE` | Collision, geofence breach, mission timeout |
 | `LOGGING_FAILURE` | Rosbag not recording, log file not growing |
+| `VLA_INFERENCE_FAILURE` | VLA latency budget missed, CUDA OOM, frozen camera stream, NaN in action chunk |
+| `SAFETY_FILTER_FAILURE` | CBF QP solver infeasible, workspace cage breach, emergency stop triggered |
 
 ## Instructions
 
 ### Step 1 — Load experiment context
 
 Read:
-- `EXPERIMENT.yaml` for expected processes, topics, timing requirements
+- `EXPERIMENT.yaml` or `VLA_EVALUATION.yaml` for expected processes, topics, timing requirements
 - Active profile from `robotics-research-router`
 - `platform.middleware` and `platform.simulator`
 
@@ -45,7 +47,7 @@ Select applicable checks from the master check list:
 
 #### Process checks
 ```
-□ Required simulation process alive (Gazebo, SITL)
+□ Required simulation process alive (Gazebo, SITL, SIMPLER, LIBERO, Isaac)
 □ Required ROS 2 nodes alive (ros2 node list)
 □ Experiment script / controller process alive
 □ Rosbag record process alive (if logging.rosbag == true)
@@ -54,6 +56,7 @@ Select applicable checks from the master check list:
 #### Topic / communication checks
 ```
 □ Key topics publishing (ros2 topic hz)
+□ Camera RGB topic active and non-stale (for VLA experiments)
 □ Topic frequency within expected range ± 20%
 □ TF available (ros2 run tf2_ros tf2_echo)
 □ PX4 heartbeat / offboard setpoint receiving
@@ -66,11 +69,15 @@ Select applicable checks from the master check list:
 □ Innovation within expected range
 ```
 
-#### Control checks
+#### Control & AI / VLA checks
 ```
 □ Control output not fully saturated (all repetitions)
 □ MPC solver returning feasible solution
 □ Solver time below control period (p99)
+□ VLA inference time within allocated budget (e.g. <= 150 ms at 5 Hz)
+□ Action chunk delta within maximum velocity clamp bounds
+□ Safety filter / CBF QP solver returning feasible solution
+□ No workspace virtual cage boundary breach
 ```
 
 #### Timing checks
@@ -78,6 +85,7 @@ Select applicable checks from the master check list:
 □ Simulation clock progressing (not stalled)
 □ Real-time factor ≥ threshold (default: RTF ≥ 0.9 for SIL)
 □ Controller deadline misses ≤ threshold
+□ GPU memory utilization within stable limits (no CUDA VRAM leak)
 ```
 
 #### Scenario checks

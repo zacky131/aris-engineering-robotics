@@ -52,6 +52,7 @@ while [[ $# -gt 0 ]]; do
       echo "  robotics-result-analysis, controller-tuning"
       echo "  robotics-experiment-audit, simulation-validation"
       echo "  sil-hil-validation, robotics-result-to-claim"
+      echo "  vla-robotics, learning-control-eval, safety-filter-cbf"
       echo "  research-pipeline-robotics"
       echo ""
       echo "=== Engineering Paper Skills ==="
@@ -341,7 +342,7 @@ PYEOF
 elif [[ "$PLATFORM" == "antigravity" ]] && $DRY_RUN; then
   echo ""
   echo "DRY-RUN: would install .agents/AGENTS.md (safe patch)"
-  echo "DRY-RUN: would install .agents/workflows/ (4 workflow files)"
+  echo "DRY-RUN: would install .agents/workflows/ (workflow files)"
 fi
 
 # ── Write structured manifest ─────────────────────────────────────────────────

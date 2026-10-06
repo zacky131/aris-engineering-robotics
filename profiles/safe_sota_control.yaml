@@ -1,0 +1,27 @@
+profile: safe_sota_control
+name: SOTA Safety-Critical & Hybrid Control
+description: >
+  Control Barrier Functions (CBF), Control Lyapunov Functions (CLF), Quadratic Program (QP)
+  safety shields, reachability analysis, and safety-projected learning policies
+  (e.g., Diffusion Policy or RL + CBF safety filter).
+typical_methods:
+  - CBF_QP_Safety_Filter (real-time projection of unconstrained actions onto forward invariant safe sets)
+  - High_Order_CBF (HOCBF for high relative-degree systems such as UAV attitude / robot torque)
+  - Robust_Adaptive_CBF (CBF with parametric uncertainty & disturbance observers)
+  - CLF_CBF_QP (unifying task stabilization and rigorous safety constraints)
+  - Safe_RL_Lagrangian (PPO-Lagrangian, constrained policy optimization)
+  - Hamilton_Jacobi_Reachability (formal backward reachable sets)
+mandatory_metrics:
+  - safety_constraint_violation_count (must be exactly 0 for hard constraints)
+  - minimum_margin_to_unsafe_boundary (min h(x))
+  - safety_filter_intervention_rate_pct (% of timesteps where QP altered action)
+  - qp_solver_time_ms (p50, p95, max)
+  - task_performance_degradation_pct_under_shield
+realtime_constraints:
+  qp_solver: [OSQP, qpOASES, ProxQP, CasADi]
+  solve_deadline_ms: 2.0
+  infeasibility_handling: conservative_braking_or_hover
+venues: [IEEE T-RO, Automatica, IEEE CDC, ACC, ICRA, IROS, L4DC]
+note: >
+  Safety filters wrap unconstrained policies (RL, VLA, human teleop) by solving:
+  min_u 0.5 * ||u - u_nominal||^2 subject to L_f h(x) + L_g h(x) u >= -alpha(h(x)).

@@ -39,6 +39,18 @@ Use the novelty-check skill.
 Use the robotics-experiment-plan skill.
 ```
 
+**For Vision-Language-Action & Embodied AI:**
+```
+Use the vla-robotics skill.
+Use the safety-filter-cbf skill.
+```
+
+**For Learning-Based & AI Control:**
+```
+Use the learning-control-eval skill.
+Use the safety-filter-cbf skill.
+```
+
 **For experiment execution:**
 ```
 Use the run-robotics-experiment skill.
@@ -132,6 +144,10 @@ the correct metric set and watchdog checks:
 | Profile | Typical methods/stack |
 |---|---|
 | `classical_control` | PID, LQR, MPC, NMPC, SMC, EKF, UKF, IMM |
+| `learning_control` | DRL, PPO, SAC, TD3, RMA, domain randomization, sim-to-real |
+| `ai_control` | Neural ODE, PINN, Neural MPC, GP-MPC, residual control |
+| `safe_sota_control` | Control Barrier Functions (CBF), QP safety filter / shield |
+| `vla_robotics` | OpenVLA, Octo, RT-1/2, pi0, SmolVLA, ACT, LIBERO, SIMPLER |
 | `ros2_robotics` | ROS 2, Gazebo, Nav2, SLAM, TF, rosbag |
 | `px4_uav` | PX4 SITL, MAVLink, uXRCE-DDS, offboard |
 | `multi_robot` | MARL, MAPPO, IPPO, coordination |

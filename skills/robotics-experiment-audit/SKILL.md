@@ -62,17 +62,37 @@ Combines ARIS experiment-integrity patterns with robotics-specific checks.
 □ RTF ≥ threshold during experiment
 ```
 
-### 5 — Scope
+### 5 — Scope & statistical integrity
 
 ```
 □ Number of trials documented
-□ Number of random seeds documented
+□ Number of random seeds documented (>= 10 for simulation, >= 5 for physical)
+□ For learning policies: metrics use IQM and bootstrap CIs (no cherry-picked best seed)
 □ Scenario diversity assessed (one scenario vs. diverse?)
 □ Platform count (one robot, one simulation world?)
 □ Environment diversity (one initial condition, one disturbance level?)
 ```
 
-### 6 — Claim-scope mismatch check
+### 6 — VLA & Embodied AI integrity
+
+```
+□ Evaluation instruction prompts are strictly disjoint from training demonstrations
+□ Test layouts/objects are documented as either In-Distribution or Out-of-Distribution
+□ Camera calibration and viewpoints are explicitly documented (no cherry-picked camera views)
+□ Action chunking inference latency logged and within frequency limits
+□ Hardware virtual cage boundary clamping is verified and logged
+```
+
+### 7 — SOTA Safety & Control Barrier integrity
+
+```
+□ Zero safety violations verified across all test runs if CBF / safety shield claimed
+□ Minimum barrier value min h(x) is logged and non-negative
+□ Safety filter intervention rate (% of timesteps modified) documented
+□ Infeasibility fallback protocol tested under corner cases
+```
+
+### 8 — Claim-scope mismatch check
 
 Flag examples:
 
@@ -85,6 +105,9 @@ Flag examples:
 | Workflow diagram in paper | "experimental validation" |
 | Single successful demo | "deployment readiness" |
 | One initial condition | "initial-condition agnostic" |
+| Seen training prompts only | "zero-shot language generalization" |
+| Unshielded neural policy | "guaranteed safe execution" |
+| Single-seed RL evaluation | "statistically superior control" |
 
 ## Instructions
 

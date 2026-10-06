@@ -1,54 +1,66 @@
 # ARIS Engineering Robotics — install manifest
-# Generated: 2026-10-01T13:41:03+09:00
+# Generated: 2026-10-06T10:40:40+09:00
 platform: antigravity
-destination: /tmp/tmppx3rgin2/.agents/skills
-project: /tmp/tmppx3rgin2
+destination: /tmp/tmpw15ia_00/.agents/skills
+project: /tmp/tmpw15ia_00
 
 managed:
   skills:
+    - ablation-planner
+    - alphaxiv
+    - analyze-results
+    - anchor-paper-intake
+    - arxiv
+    - citation-audit
+    - claims-drafting
     - controller-tuning
+    - deepxiv
+    - dse-loop
+    - engineering-figure-table
+    - engineering-paper-auditor
+    - engineering-paper-coach
+    - engineering-paper-router
+    - engineering-polishing
+    - engineering-response
+    - engineering-validation
+    - engineering-writing
+    - experiment-audit
+    - experiment-plan
+    - formula-derivation
+    - idea-discovery
+    - idea-discovery-robot
+    - learning-control-eval
+    - monitor-experiment
+    - novelty-check
+    - openalex
+    - paper-claim-audit
+    - paper-compile
+    - paper-write
+    - paper-writing
+    - rebuttal
+    - research-implement-feature
+    - research-lit
+    - research-pipeline
     - research-pipeline-robotics
+    - research-refine
+    - research-review
+    - result-to-claim
     - robotics-experiment-audit
     - robotics-experiment-plan
     - robotics-research-router
     - robotics-result-analysis
     - robotics-result-to-claim
     - robotics-watchdog
+    - run-experiment
     - run-robotics-experiment
+    - safety-filter-cbf
+    - semantic-scholar
+    - _shared
+    - shared-references
     - sil-hil-validation
     - simulation-validation
-    - research-lit
-    - idea-discovery
-    - idea-discovery-robot
-    - novelty-check
-    - experiment-plan
-    - research-implement-feature
-    - run-experiment
-    - monitor-experiment
     - training-check
-    - analyze-results
-    - ablation-planner
-    - experiment-audit
-    - result-to-claim
-    - paper-writing
-    - paper-claim-audit
-    - research-review
-    - rebuttal
-    - paper-compile
-    - research-pipeline
-    - dse-loop
-    - claims-drafting
-    - paper-write
-    - citation-audit
-    - formula-derivation
-    - engineering-writing
-    - engineering-polishing
-    - engineering-paper-auditor
-    - engineering-figure-table
-    - engineering-response
-    - engineering-validation
-    - engineering-paper-router
-    - engineering-paper-coach
+    - vla-robotics
   shared:
     - shared-references
     - _shared
@@ -56,5 +68,7 @@ managed:
   workflows:
     - analyze-robotics.md
     - experiment-robotics.md
+    - learning-control.md
     - research-robotics.md
+    - vla-robotics.md
     - write-engineering-paper.md

@@ -1,0 +1,37 @@
+# $schema: ../schemas/vla-evaluation.schema.json
+# Template for Vision-Language-Action (VLA) evaluation experiments.
+
+vla_model:
+  name: "openvla-7b"
+  checkpoint: "checkpoints/openvla-7b-finetuned-libero"
+  vision_backbone: "siglip-so400m"
+  language_backbone: "llama-2-7b"
+  precision: "bf16"
+
+benchmark:
+  environment: "libero"
+  task_suite: "libero_spatial"
+  robot_platform: "franka_panda"
+
+action_chunking:
+  chunk_size: 16
+  action_frame: "tool_frame_cartesian_delta"
+  temporal_ensembling: true
+  policy_frequency_hz: 5.0
+  control_frequency_hz: 100.0
+
+evaluation_matrix:
+  trials_per_task: 20
+  test_in_distribution: true
+  test_visual_ood: true
+  test_spatial_ood: true
+  test_language_ood: true
+
+safety:
+  workspace_bounding_box:
+    x: [-0.60, 0.60]
+    y: [-0.60, 0.60]
+    z: [0.02, 0.75]
+  max_delta_pos_m: 0.05
+  max_delta_rot_deg: 15.0
+  cbf_shield_enabled: true

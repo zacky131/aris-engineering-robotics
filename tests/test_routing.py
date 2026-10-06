@@ -5,6 +5,15 @@ import sys
 PROFILES = {
     "classical_control": ["PID", "LQR", "MPC", "NMPC", "SMC", "EKF", "UKF", "IMM",
                           "Kalman", "adaptive control", "robust control", "observer"],
+    "learning_control": ["DRL", "PPO", "SAC", "TD3", "REDQ", "offline RL", "sim-to-real",
+                         "domain randomization", "RMA"],
+    "ai_control": ["Neural ODE", "PINN", "physics-informed", "learned dynamics",
+                   "Neural MPC", "GP-MPC", "residual RL", "residual control"],
+    "safe_sota_control": ["Control Barrier Function", "CBF", "CLF-CBF", "safety filter",
+                          "QP shield", "forward invariance", "safety certificate"],
+    "vla_robotics": ["VLA", "Vision-Language-Action", "OpenVLA", "Octo", "RT-1", "RT-2",
+                     "pi0", "SmolVLA", "ACT", "action chunking", "LIBERO", "SIMPLER",
+                     "ManiSkill", "CALVIN"],
     "ros2_robotics": ["ROS 2", "ROS2", "Nav2", "SLAM", "rosbag", "TF", "sensor fusion"],
     "px4_uav": ["PX4", "SITL", "MAVLink", "uXRCE-DDS", "offboard", "UAV", "guidance"],
     "multi_robot": ["MARL", "swarm", "coordination", "multi-UAV", "multi-robot", "MAPPO"],
@@ -36,9 +45,40 @@ def test_px4_sitl():
 def test_mappo_multi_agent():
     prompt = "Analyze MAPPO multi-agent training results"
     profiles = detect_profiles(prompt)
-    assert "learning_robotics" in profiles or "multi_robot" in profiles, \
+    assert "learning_robotics" in profiles or "multi_robot" in profiles or "learning_control" in profiles, \
         f"Expected learning_robotics or multi_robot, got {profiles}"
     print(f"PASS: MAPPO multi-agent → {profiles}")
+
+def test_vla_robotics_routing():
+    prompt = "Evaluate OpenVLA policy on LIBERO benchmark with action chunking and spatial generalization"
+    profiles = detect_profiles(prompt)
+    assert "vla_robotics" in profiles, f"Expected vla_robotics, got {profiles}"
+    print(f"PASS: OpenVLA LIBERO → {profiles}")
+
+def test_learning_control_routing():
+    prompt = "Sim-to-real transfer of quadruped locomotion using PPO with domain randomization and RMA"
+    profiles = detect_profiles(prompt)
+    assert "learning_control" in profiles, f"Expected learning_control, got {profiles}"
+    print(f"PASS: PPO Sim-to-Real RMA → {profiles}")
+
+def test_ai_control_routing():
+    prompt = "Design a physics-informed Neural ODE dynamics model for high-speed tracking with Neural MPC"
+    profiles = detect_profiles(prompt)
+    assert "ai_control" in profiles, f"Expected ai_control, got {profiles}"
+    print(f"PASS: Physics-informed Neural ODE → {profiles}")
+
+def test_safe_sota_control_routing():
+    prompt = "Synthesize a CBF-QP safety shield to guarantee forward invariance under input constraints"
+    profiles = detect_profiles(prompt)
+    assert "safe_sota_control" in profiles, f"Expected safe_sota_control, got {profiles}"
+    print(f"PASS: CBF-QP safety shield → {profiles}")
+
+def test_vla_with_cbf_safety_hybrid():
+    prompt = "Deploy Octo VLA policy with a Control Barrier Function safety filter on a 7-DOF manipulator"
+    profiles = detect_profiles(prompt)
+    assert "vla_robotics" in profiles, f"Expected vla_robotics, got {profiles}"
+    assert "safe_sota_control" in profiles, f"Expected safe_sota_control, got {profiles}"
+    print(f"PASS: Octo + CBF multi-profile → {profiles}")
 
 def test_paper_writing_not_robotics():
     prompt = "Rewrite the Results section of my robotics paper"
@@ -48,7 +88,17 @@ def test_paper_writing_not_robotics():
     print(f"PASS: paper writing → profiles {profiles} (should route to paper layer)")
 
 if __name__ == "__main__":
-    tests = [test_mpc_uav, test_px4_sitl, test_mappo_multi_agent, test_paper_writing_not_robotics]
+    tests = [
+        test_mpc_uav,
+        test_px4_sitl,
+        test_mappo_multi_agent,
+        test_vla_robotics_routing,
+        test_learning_control_routing,
+        test_ai_control_routing,
+        test_safe_sota_control_routing,
+        test_vla_with_cbf_safety_hybrid,
+        test_paper_writing_not_robotics,
+    ]
     failed = 0
     for t in tests:
         try:

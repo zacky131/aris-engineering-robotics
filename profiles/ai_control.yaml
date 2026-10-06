@@ -1,0 +1,30 @@
+profile: ai_control
+name: AI-Based & Physics-Informed Control
+description: >
+  Physics-Informed Neural Networks (PINNs), Neural Ordinary Differential Equations (Neural ODEs),
+  learned dynamics modeling with Gaussian Processes / Deep Ensembles, Neural MPC,
+  and residual control architectures (nominal physical model + neural residual network).
+typical_methods:
+  - Neural_ODE (continuous-time latent dynamics)
+  - PINN (Physics-Informed Neural Networks preserving energy/conservation laws)
+  - Neural_MPC (learned neural dynamics embedded in CasADi / acados / IPOPT solvers)
+  - GP_MPC (Gaussian Process uncertainty propagation in MPC)
+  - Residual_RL / Residual_Control (nominal controller + corrective neural policy)
+  - Diffusion_Policy (trajectory-level generative modeling)
+  - Flow_Matching (continuous normalizing flows for robot action generation)
+mandatory_metrics:
+  - trajectory_tracking_rmse
+  - model_prediction_error_multi_step_ahead
+  - control_effort_norm
+  - policy_inference_latency_ms (p50, p95, p99)
+  - energy_conservation_violation_norm
+  - residual_contribution_ratio
+realtime_constraints:
+  maximum_inference_time_ms: 10
+  export_formats: [onnx, tensorrt, torchscript_cpp]
+  fallback_mechanism: fallback_to_nominal_classical_controller
+venues: [IEEE T-RO, IEEE CDC, ACC, RA-L, ICRA, IROS, NeurIPS]
+note: >
+  AI controllers deployed in closed loops must guarantee real-time latency bounds.
+  If neural inference exceeds the time budget, the system must deterministically revert
+  to the nominal classical controller.
